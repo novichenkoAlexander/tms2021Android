@@ -92,4 +92,20 @@ public class Homework {
         int b = scanner.nextInt();
         return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
     }
+
+    private static int readNumber(char liter) {
+        int number;
+        while (true) {
+            Scanner scanner = new Scanner(System.in);
+            if (scanner.hasNextInt()) {
+                number = scanner.nextInt();
+                break;
+            } else {
+                System.out.println("Incorrect input!");
+                System.out.println("Input " + liter + " again:");
+            }
+        }
+        return number;
+
+    }
 }
