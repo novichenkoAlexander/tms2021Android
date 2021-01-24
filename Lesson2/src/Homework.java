@@ -10,7 +10,7 @@ public class Homework {
 //        System.out.println(max(50, 49));
 //        System.out.println(average(new int[]{1, 2, 3, 4, 5}));
 //        System.out.println(max(new int[]{1, 2, 3, 4, 5, 100, 99}));
-//        System.out.println(calculateHypotenuse());
+        System.out.println(calculateHypotenuse());
     }
 
     /**
@@ -85,11 +85,27 @@ public class Homework {
      * Method should return 20
      */
     public static double calculateHypotenuse() {
-        Scanner scanner = new Scanner(System.in);
+        int a = 0;
+        int b = 0;
         System.out.println("Input a: ");
-        int a = scanner.nextInt();
+        a = readNumber('a');
         System.out.println("Input b: ");
-        int b = scanner.nextInt();
+        b = readNumber('b');
         return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+    }
+
+    private static int readNumber(char liter) {
+        int number;
+        while (true) {
+            Scanner scanner = new Scanner(System.in);
+            if (scanner.hasNextInt()) {
+                number = scanner.nextInt();
+                break;
+            } else {
+                System.out.println("Incorrect input!");
+                System.out.println("Input " + liter + " again:");
+            }
+        }
+        return number;
     }
 }
