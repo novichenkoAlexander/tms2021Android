@@ -106,6 +106,5 @@ public class Homework {
             }
         }
         return number;
-
     }
 }
