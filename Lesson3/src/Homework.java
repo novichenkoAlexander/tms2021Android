@@ -13,8 +13,8 @@ public class Homework {
 //        foobar(6);
 //        foobar(10);
 //        foobar(4);
-        printMatrix();
-//        printPrimeNumbers();
+//        printMatrix();
+        printPrimeNumbers();
     }
 
     /**
@@ -106,8 +106,7 @@ public class Homework {
                 }
 
             }
-            //System.out.println("");
-            //System.out.println(Arrays.toString(stringArray));
+
         }
         for (String[] rows : stringArray) {
             System.out.println(Arrays.toString(rows));
@@ -135,8 +134,28 @@ public class Homework {
      * Method should print all prime numbers < 1000
      */
     public static void printPrimeNumbers() {
+        int[] array = new int[1000];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = i;
+        }
+        boolean isPrime = true;
+        for (int i = 2; i < array.length; i++) {
+            for (int j = 2; j < i; j++) {
+                if (i % j == 0) {
+                    isPrime = false;
+                    break;
+                }
+            }
+            if (isPrime) {
+                array[i] = i;
+            }
+
+        }
+        System.out.println(Arrays.toString(array));
 
     }
 
-
 }
+
+
+
