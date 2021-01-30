@@ -10,6 +10,10 @@ public class Address {
         this.city = city;
     }
 
+    public Address(String country) {
+        this.country = country;
+    }
+
     public String getCountry() {
         return country;
     }
@@ -28,6 +32,12 @@ public class Address {
 
     @Override
     public String toString() {
-        return country + "," + city;
+        String output = "";
+        if (city == null) {
+            output = country;
+        } else {
+            output = country + "," + city;
+        }
+        return output;
     }
 }

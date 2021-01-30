@@ -3,12 +3,16 @@ package com.home.service;
 import com.home.model.Address;
 import com.home.model.Person;
 
-import javax.xml.namespace.QName;
 import java.util.LinkedList;
 import java.util.List;
 
 public class PersonsRegistry {
     private Person[] citizens;
+    private List<Person> persons;
+
+    public PersonsRegistry(List<Person> persons) {
+        this.persons = persons;
+    }
 
     public PersonsRegistry(Person[] citizens) {
         this.citizens = citizens;

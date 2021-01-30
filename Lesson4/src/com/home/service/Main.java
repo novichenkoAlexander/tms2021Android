@@ -17,17 +17,27 @@ public class Main {
         Person pavel = new Person(27,"Pavel", new Address("Belarus", "Minsk"),"male");
         Person denis = new Person(25,"Denis", new Address("Belarus", "Minsk"),"male");
 
-        PersonsRegistry registry = new PersonsRegistry(new Person[]{ivan,alex,peter,natalia,olga,oleg,pavel,denis});
-        System.out.println("Number of people living in Belarus: " + registry.countPeople("Belarus"));
+        // Create people from console
+        System.out.println("Input");
+        Person person1 = ConsoleInput.parseInputLine(ConsoleInput.readLine());
+        Person person2 = ConsoleInput.parseInputLine(ConsoleInput.readLine());
+        Person person3 = ConsoleInput.parseInputLine(ConsoleInput.readLine());
+        Person person4 = ConsoleInput.parseInputLine(ConsoleInput.readLine());
+        person1.info();
+//        PersonsRegistry registry = new PersonsRegistry(new Person[]{ivan,alex,peter,natalia,olga,oleg,pavel,denis});
+//        System.out.println("Number of people living in Belarus: " + registry.countPeople("Belarus"));
+//
+//
+//        List<Person> people = registry.getListOfPeople(new Address("Belarus","Minsk"));
+//        System.out.println("List of people living in Belarus, Minsk:");
+//        registry.listToString(people);
+//
+//        MilitaryOffice office = new MilitaryOffice(registry);
+//        List<Person>listOfHealthyMen = office.getListOfHealthyMen(new Address("Belarus","Minsk"));
+//        office.listToString(listOfHealthyMen);
+//        listOfHealthyMen = office.getListOfHealthyMen("Belarus");
+//        office.listToString(listOfHealthyMen);
 
-        List<Person> people = registry.getListOfPeople(new Address("Belarus","Minsk"));
-        System.out.println("List of people living in Belarus, Minsk:");
-        registry.listToString(people);
-
-        MilitaryOffice office = new MilitaryOffice(registry);
-        List<Person>listOfHealthyMen = office.getListOfHealthyMen(new Address("Belarus","Minsk"));
-        office.listToString(listOfHealthyMen);
-        listOfHealthyMen = office.getListOfHealthyMen("Belarus");
-        office.listToString(listOfHealthyMen);
+        //TODO: Make people through the console!
     }
 }
