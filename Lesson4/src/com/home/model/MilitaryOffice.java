@@ -35,8 +35,8 @@ public class MilitaryOffice {
     }
 
 
-    public void listToString(List<Person> people) {
-        System.out.println("List of men fit for military service: ");
+    public void listToString(List<Person> people, Address address) {
+        System.out.println("List of men fit for military service in " + address.toString() + ": ");
         for (Person person : people) {
             System.out.print(person.getName() + ",");
         }

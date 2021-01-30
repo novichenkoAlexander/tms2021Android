@@ -8,7 +8,7 @@ import java.util.List;
 
 public class PersonsRegistry {
     //private Person[] citizens;
-    private List<Person> citizens;
+    private final List<Person> citizens;
 
     public PersonsRegistry(List<Person> citizens) {
         this.citizens = citizens;
@@ -62,12 +62,13 @@ public class PersonsRegistry {
         return people;
     }
 
-    public void listToString(List<Person> people) {
-        for (Person person : people) {
-            System.out.print(person.getName() + ",");
+    public void listToString(List<Person> personList) {
+        String string = "";
+        for (Person person : personList) {
+            string = person.getName();
+            System.out.println(person.getName());
         }
-        System.out.println("\b");
-        System.out.println("");
+
     }
 
 }

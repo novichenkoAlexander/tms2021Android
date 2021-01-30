@@ -1,4 +1,5 @@
 package com.home.service;
+
 import com.home.model.Address;
 import com.home.model.MilitaryOffice;
 import com.home.model.Person;
@@ -8,6 +9,11 @@ import java.util.List;
 
 
 public class Main {
+
+    public static final String country = "Belarus";
+    public static final String city = "Minsk";
+
+
     public static void main(String[] args) {
 //        Person ivan = new Person(26,"Ivan", new Address("Belarus", "Minsk"),"male");
 //        Person alex = new Person(32,"Alex", new Address("Belarus", "Grodno"),"male");
@@ -21,8 +27,40 @@ public class Main {
         /**
          * Creating people from console
          */
-        Person person1 = ConsoleInput.readPerson();
-        person1.info();
+        Address countryAddress = new Address(country);
+        Address allAddress = new Address(country, city);
+
+        PersonsRegistry registry = new PersonsRegistry(ConsoleInput.CreatePeople());
+        System.out.println("Number of people living in " + country + " : " + registry.countPeople(country) + "\n");
+        List<Person> people = registry.getListOfPeople(countryAddress);
+
+        System.out.println("They are:");
+        registry.listToString(people);
+        System.out.println("");
+
+        System.out.println("Number of people living in " + country + "," + city + ": " +
+                registry.countPeople(allAddress) + "\n");
+        List<Person> people1 = registry.getListOfPeople(allAddress);
+        System.out.println("They are: ");
+        registry.listToString(people1);
+        System.out.println("");
+
+        MilitaryOffice office = new MilitaryOffice(registry);
+
+        /*
+          List of healthy men in Belarus & Minsk
+         */
+        //Address address = new Address("Belarus", "Minsk");
+        List<Person> listOfHealthyMen = office.getListOfHealthyMen(allAddress);
+        office.listToString(listOfHealthyMen, allAddress);
+
+        /*
+          List of healthy men in whole Belarus
+         */
+        countryAddress.setCity("");
+        listOfHealthyMen = office.getListOfHealthyMen(country);
+        office.listToString(listOfHealthyMen, countryAddress);
+
 
 //        PersonsRegistry registry = new PersonsRegistry(new Person[]{ivan,alex,peter,natalia,olga,oleg,pavel,denis});
 //        System.out.println("Number of people living in Belarus: " + registry.countPeople("Belarus"));

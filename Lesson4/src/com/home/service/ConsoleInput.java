@@ -3,14 +3,12 @@ package com.home.service;
 import com.home.model.Address;
 import com.home.model.Person;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 
 public class ConsoleInput {
-    public static void main(String[] args) {
-
-
-    }
 
     /**
      * Read from console
@@ -19,7 +17,7 @@ public class ConsoleInput {
 
     public static Person readPerson() {
         System.out.println("Input age:");
-        int age = readAge();
+        int age = readInt();
         System.out.println("Input name:");
         String name = readStringParam();
         System.out.println("Input country:");
@@ -29,27 +27,43 @@ public class ConsoleInput {
         System.out.println("Input gender:");
         String gender = readStringParam();
 
-        return new Person(age,name,new Address(country,city),gender);
+        return new Person(age, name, new Address(country, city), gender);
     }
 
-    private static int readAge() {
-        int age;
+    private static int readInt() {
+        int intParam;
         while (true) {
             scanner = new Scanner(System.in);
             if (scanner.hasNextInt()) {
-                age = scanner.nextInt();
-                break;
-            } else {
+                intParam = scanner.nextInt();
+                if (intParam > 0) {
+                    break;
+                } else {
+                    System.out.println("Incorrect input!");
+                    System.out.println("Input  again (int number > 0):");
+                }
+            }else {
                 System.out.println("Incorrect input!");
-                System.out.println("Input age again:");
+                System.out.println("Input  again (int number > 0):");
             }
         }
-        return age;
+        return intParam;
     }
 
     private static String readStringParam() {
         scanner = new Scanner(System.in);
         return scanner.nextLine();
+    }
+
+    public static List<Person> CreatePeople() {
+        System.out.println("Input number of people U would like to create:");
+        int numberOfPeople = readInt();
+        List<Person> people = new LinkedList<>();
+        for (int i = 0; i < numberOfPeople; i++) {
+            people.add(ConsoleInput.readPerson());
+            System.out.println("Input data for next person:");
+        }
+        return people;
     }
 
 
