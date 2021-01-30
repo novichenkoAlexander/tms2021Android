@@ -8,53 +8,51 @@ import java.util.Scanner;
 
 public class ConsoleInput {
     public static void main(String[] args) {
-        Person person = parseInputLine(readLine());
-        person.info();
+
+
     }
 
     /**
-     * Made only for one-in-line input
-     *
+     * Read from console
      */
-    public static String readLine() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Create person by this template: ");
-        System.out.println("age, name, country, gender");
-        String line = "";
+    private static Scanner scanner;
+
+    public static Person readPerson() {
+        System.out.println("Input age:");
+        int age = readAge();
+        System.out.println("Input name:");
+        String name = readStringParam();
+        System.out.println("Input country:");
+        String country = readStringParam();
+        System.out.println("Input city:");
+        String city = readStringParam();
+        System.out.println("Input gender:");
+        String gender = readStringParam();
+
+        return new Person(age,name,new Address(country,city),gender);
+    }
+
+    private static int readAge() {
+        int age;
         while (true) {
-            if (scanner.hasNextLine()) {
-                line = scanner.next();
+            scanner = new Scanner(System.in);
+            if (scanner.hasNextInt()) {
+                age = scanner.nextInt();
                 break;
+            } else {
+                System.out.println("Incorrect input!");
+                System.out.println("Input age again:");
             }
-
         }
-        return line;
+        return age;
     }
 
-    public static Person parseInputLine(String line) {
-        String[] strings = line.split(",");
-        int age = 0;
-        String name = "";
-        String country = "";
-        String gender = "";
-            for (int i = 0; i < strings.length; i++){
-                switch (i){
-                    case 0:
-                        age = Integer.parseInt(strings[i]);
-                    case 1:
-                        name = strings[i];
-                    case 2:
-                        country = strings[i];
-                    case 3:
-                        gender = strings[i];
-                        break;
-                    default:
-                        System.out.println("Alarm");
-                }
-            }
-            return new Person(age,name,new Address(country),gender);
-        }
-
+    private static String readStringParam() {
+        scanner = new Scanner(System.in);
+        return scanner.nextLine();
     }
+
+
+}
 
 

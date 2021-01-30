@@ -7,16 +7,16 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PersonsRegistry {
-    private Person[] citizens;
-    private List<Person> persons;
+    //private Person[] citizens;
+    private List<Person> citizens;
 
-    public PersonsRegistry(List<Person> persons) {
-        this.persons = persons;
-    }
-
-    public PersonsRegistry(Person[] citizens) {
+    public PersonsRegistry(List<Person> citizens) {
         this.citizens = citizens;
     }
+
+//    public PersonsRegistry(Person[] citizens) {
+//        this.citizens = citizens;
+//    }
 
     public int countPeople(Address address) {
         int numberOfPeople = 0;

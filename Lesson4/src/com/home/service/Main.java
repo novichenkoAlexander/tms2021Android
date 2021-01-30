@@ -3,27 +3,27 @@ import com.home.model.Address;
 import com.home.model.MilitaryOffice;
 import com.home.model.Person;
 
+import java.util.LinkedList;
 import java.util.List;
 
 
 public class Main {
     public static void main(String[] args) {
-        Person ivan = new Person(26,"Ivan", new Address("Belarus", "Minsk"),"male");
-        Person alex = new Person(32,"Alex", new Address("Belarus", "Grodno"),"male");
-        Person peter = new Person(18,"Peter", new Address("Ukraine", "Kiev"),"male");
-        Person natalia = new Person(22,"Natalia", new Address("Belarus", "Minsk"),"female");
-        Person olga = new Person(22,"Olga", new Address("Russia", "Moscow"),"female");
-        Person oleg = new Person(20,"Oleg", new Address("Belarus", "Minsk"),"male");
-        Person pavel = new Person(27,"Pavel", new Address("Belarus", "Minsk"),"male");
-        Person denis = new Person(25,"Denis", new Address("Belarus", "Minsk"),"male");
+//        Person ivan = new Person(26,"Ivan", new Address("Belarus", "Minsk"),"male");
+//        Person alex = new Person(32,"Alex", new Address("Belarus", "Grodno"),"male");
+//        Person peter = new Person(18,"Peter", new Address("Ukraine", "Kiev"),"male");
+//        Person natalia = new Person(22,"Natalia", new Address("Belarus", "Minsk"),"female");
+//        Person olga = new Person(22,"Olga", new Address("Russia", "Moscow"),"female");
+//        Person oleg = new Person(20,"Oleg", new Address("Belarus", "Minsk"),"male");
+//        Person pavel = new Person(27,"Pavel", new Address("Belarus", "Minsk"),"male");
+//        Person denis = new Person(25,"Denis", new Address("Belarus", "Minsk"),"male");
 
-        // Create people from console
-        System.out.println("Input");
-        Person person1 = ConsoleInput.parseInputLine(ConsoleInput.readLine());
-        Person person2 = ConsoleInput.parseInputLine(ConsoleInput.readLine());
-        Person person3 = ConsoleInput.parseInputLine(ConsoleInput.readLine());
-        Person person4 = ConsoleInput.parseInputLine(ConsoleInput.readLine());
+        /**
+         * Creating people from console
+         */
+        Person person1 = ConsoleInput.readPerson();
         person1.info();
+
 //        PersonsRegistry registry = new PersonsRegistry(new Person[]{ivan,alex,peter,natalia,olga,oleg,pavel,denis});
 //        System.out.println("Number of people living in Belarus: " + registry.countPeople("Belarus"));
 //
@@ -38,6 +38,6 @@ public class Main {
 //        listOfHealthyMen = office.getListOfHealthyMen("Belarus");
 //        office.listToString(listOfHealthyMen);
 
-        //TODO: Make people through the console!
+
     }
 }
