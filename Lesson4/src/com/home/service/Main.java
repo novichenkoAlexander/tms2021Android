@@ -32,8 +32,9 @@ public class Main {
 
         PersonsRegistry registry = new PersonsRegistry(ConsoleInput.CreatePeople());
         System.out.println("Number of people living in " + country + " : " + registry.countPeople(country) + "\n");
-        List<Person> people = registry.getListOfPeople(countryAddress);
+        List<Person> people = registry.getListOfPeople(country);
 
+        // TODO: Make right output of "They are"
         System.out.println("They are:");
         registry.listToString(people);
         System.out.println("");
@@ -50,7 +51,6 @@ public class Main {
         /*
           List of healthy men in Belarus & Minsk
          */
-        //Address address = new Address("Belarus", "Minsk");
         List<Person> listOfHealthyMen = office.getListOfHealthyMen(allAddress);
         office.listToString(listOfHealthyMen, allAddress);
 

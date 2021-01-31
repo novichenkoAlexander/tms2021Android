@@ -33,7 +33,7 @@ public class Address {
     @Override
     public String toString() {
         String output = "";
-        if (city.equals("")) {
+        if (city == null) {
             output = country ;
         } else {
             output = country + "," + city;

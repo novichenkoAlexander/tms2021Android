@@ -63,9 +63,7 @@ public class PersonsRegistry {
     }
 
     public void listToString(List<Person> personList) {
-        String string = "";
         for (Person person : personList) {
-            string = person.getName();
             System.out.println(person.getName());
         }
 

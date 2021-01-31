@@ -31,24 +31,21 @@ public class ConsoleInput {
     }
 
     private static int readInt() {
-        int intParam;
+        int intParam = 0;
         while (true) {
             scanner = new Scanner(System.in);
             if (scanner.hasNextInt()) {
                 intParam = scanner.nextInt();
-                if (intParam > 0) {
-                    break;
-                } else {
-                    System.out.println("Incorrect input!");
-                    System.out.println("Input  again (int number > 0):");
-                }
-            }else {
-                System.out.println("Incorrect input!");
-                System.out.println("Input  again (int number > 0):");
             }
+            if (intParam > 0) {
+                break;
+            } else {
+                System.out.println("Incorrect input!" + "\n" + "Input  again (int number > 0):");
+            }
+
         }
         return intParam;
-    }
+}
 
     private static String readStringParam() {
         scanner = new Scanner(System.in);
