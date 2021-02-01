@@ -16,7 +16,6 @@ public class Person {
     }
 
 
-
     public void info() {
         System.out.println("Hello, my name is " + name);
         System.out.println("I`m " + age + " years old");
@@ -37,7 +36,12 @@ public class Person {
     }
 
     public void setAge(int age) {
-        this.age = Math.max(age, 0);
+        if (age < 0) {
+            System.out.println("Incorrect age");
+        } else {
+            //this.age = Math.max(age, 0);
+            this.age = age;
+        }
     }
 
     public String getName() {
