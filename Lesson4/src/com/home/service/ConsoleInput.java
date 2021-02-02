@@ -100,7 +100,7 @@ public class ConsoleInput {
         return gender;
     }
 
-    public static List<Person> CreatePeople() {
+    public static List<Person> createPeople() {
         System.out.println("Input number of people You would like to enter:");
         int numberOfPeople = readInt();
         List<Person> people = new LinkedList<>();

@@ -4,7 +4,6 @@ import com.home.model.Address;
 import com.home.model.MilitaryOffice;
 import com.home.model.Person;
 
-import java.util.LinkedList;
 import java.util.List;
 
 
@@ -23,7 +22,7 @@ public class Main {
         Address allAddress = new Address(country, city);
 
 
-        PersonsRegistry registry = new PersonsRegistry(ConsoleInput.CreatePeople());
+        PersonsRegistry registry = new PersonsRegistry(ConsoleInput.createPeople());
         System.out.println("Number of people living in " + country + " : " + registry.countPeople(country) + "\n");
         List<Person> people = registry.getListOfPeople(country);
         System.out.println("People living in " + country + " : ");

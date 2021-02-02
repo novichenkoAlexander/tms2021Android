@@ -16,9 +16,7 @@ public class MilitaryOffice {
         List<Person> listOfMen = new LinkedList<>();
         for (Person person : registry.getListOfPeople(address)) {
             int age = person.getAge();
-            if (person.getGender().equals("male") && (age >= 18 && age <= 27)) {
-                listOfMen.add(person);
-            }
+            checkForSuitability(listOfMen,person,age);
         }
         return listOfMen;
     }
@@ -27,11 +25,15 @@ public class MilitaryOffice {
         List<Person> listOfMen = new LinkedList<>();
         for (Person person : registry.getListOfPeople(country)) {
             int age = person.getAge();
-            if (person.getGender().equals("male") && (age >= 18 && age <= 27)) {
-                listOfMen.add(person);
-            }
+            checkForSuitability(listOfMen,person,age);
         }
         return listOfMen;
+    }
+
+    private static boolean checkForSuitability(List<Person> listOfMen,Person person, int age){
+        if (person.getGender().equals("male") && (age >= 18 && age <= 27)) {
+            listOfMen.add(person);
+        }return true;
     }
 
 
