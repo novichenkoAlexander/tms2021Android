@@ -25,30 +25,42 @@ public class Computer {
         System.out.println("Number of life cycle: " + lifeCycle);
     }
 
-    public void turnOn(int lifeCycle) {
-        while (lifeCycle > 0) {
-            System.out.println("PC is turning on...");
-            Random random = new Random();
-            int oneZero = random.nextInt(2);
-            System.out.println("ALARM! Input 0 or 1");
-            int check = Reader.readInt();
-            if (oneZero == check) {
-                turnOff();
-                lifeCycle--;
-                if(lifeCycle == 0){
-                    System.out.println("PC has burned down! Out of life cycles! ");
-                }
-            } else {
-                System.out.println("PC has burned down!!!");
-                break;
+    public int turnOn(int lifeCycle) {
+        //int cycle = lifeCycle;
+        System.out.println("PC is turning on...");
+        if (getRandomNumber()) {
+            lifeCycle = turnOff(lifeCycle);
+            if (lifeCycle == 0) {
+                System.out.println("PC has burned down! Out of life cycles! ");
             }
+        } else {
+            System.out.println("PC has burned down!!!");
+            lifeCycle = 0;
         }
+        return lifeCycle;
 
     }
 
-    public void turnOff() {
+    public int turnOff(int lifeCycle) {
         System.out.println("PC is turning off...");
+        int cycle = lifeCycle;
+        if (getRandomNumber()) {
+            System.out.println("PC is OFF!");
+            cycle--;
+        } else {
+            System.out.println("PC has burned down!!!");
+            cycle = 0;
+        }
+        return cycle;
 
+    }
+
+    private boolean getRandomNumber() {
+        Random random = new Random();
+        int oneZero = random.nextInt(2);
+        System.out.println("ALARM! Input 0 or 1");
+        int check = Reader.readInt();
+        return oneZero == check;
     }
 
     public String getCpu() {
