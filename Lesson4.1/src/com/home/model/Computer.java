@@ -25,33 +25,42 @@ public class Computer {
         System.out.println("Number of life cycle: " + lifeCycle);
     }
 
-    public int turnOn(int lifeCycle) {
-        //int cycle = lifeCycle;
-        System.out.println("PC is turning on...");
-        if (getRandomNumber()) {
-            lifeCycle = turnOff(lifeCycle);
+    public boolean turnOn(int lifeCycle, boolean isDead) {
+        boolean state = false;
+        if (!isDead) {
             if (lifeCycle == 0) {
                 System.out.println("PC has burned down! Out of life cycles! ");
+                state = true;
+            } else {
+                System.out.println("PC is turning on...");
+                if (getRandomNumber()) {
+                    System.out.println("PC is ON!");
+                } else {
+                    System.out.println("PC has burned down!!!");
+                    state = true;
+                }
             }
         } else {
             System.out.println("PC has burned down!!!");
-            lifeCycle = 0;
         }
-        return lifeCycle;
+        return state;
 
     }
 
-    public int turnOff(int lifeCycle) {
-        System.out.println("PC is turning off...");
-        int cycle = lifeCycle;
-        if (getRandomNumber()) {
-            System.out.println("PC is OFF!");
-            cycle--;
+    public boolean turnOff(boolean isDead) {
+        boolean deathState = false;
+        if (!isDead) {
+            System.out.println("PC is turning off...");
+            if (getRandomNumber()) {
+                System.out.println("PC is OFF!");
+            } else {
+                System.out.println("PC has burned down!!!");
+                deathState = true;
+            }
         } else {
-            System.out.println("PC has burned down!!!");
-            cycle = 0;
+            deathState = true;
         }
-        return cycle;
+        return deathState;
 
     }
 

@@ -12,16 +12,15 @@ public class Main {
 
         int lifeCycles = computer.getLifeCycle();
 
-        while (lifeCycles > 0) {
-            int cycle = computer.turnOn(lifeCycles);
-            if (cycle > 0) {
-                lifeCycles--;
-            } else {
-                lifeCycles = 0;
+        while (lifeCycles >= 0) {
+            boolean isDead = false;
+            isDead = computer.turnOn(lifeCycles, isDead);
+            isDead = computer.turnOff(isDead);
+            lifeCycles--;
+            if (isDead) {
+                break;
             }
         }
-
-
     }
-
 }
+
