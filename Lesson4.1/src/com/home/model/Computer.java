@@ -48,8 +48,7 @@ public class Computer {
                         setStatus(0);
                     }
                 }
-            }
-            if (status == 0) {
+            } else if (status == 0) {
                 System.out.println("PC has burned down!!!");
                 setStatus(0);
             }
