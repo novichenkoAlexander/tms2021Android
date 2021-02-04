@@ -36,45 +36,51 @@ public class Computer {
         if (cycleCounter < lifeCycle) {
             if (status == 2) {                  // 2 - pc is Off
                 if (lifeCycle == 0) {
-                    System.out.println("PC has burned down! Out of life cycles! ");
                     setStatus(0);
                 } else {
                     System.out.println("PC is turning on...");
-                    if (getRandomNumber()) {
-                        System.out.println("PC is ON!");
+                    if (passedTest()) {
                         setStatus(1);
                     } else {
-                        System.out.println("PC has burned down!!!");
                         setStatus(0);
                     }
                 }
             } else if (status == 0) {
-                System.out.println("PC has burned down!!!");
                 setStatus(0);
             }
         } else {
-            System.out.println("PC has burned down! Out of life cycles! ");
+            System.out.println("Out of life cycles! ");
             setStatus(0);
         }
+        printState();
 
     }
 
     public void turnOff() {
         if (status == 1) {      // PC is on
             System.out.println("PC is turning off...");
-            if (getRandomNumber()) {
-                System.out.println("PC is OFF!");
+            if (passedTest()) {
                 setStatus(2);       // PC is Off
-                setCycleCounter(+1);
+                incCycleCounter();
             } else {
-                System.out.println("PC has burned down!!!");
                 setStatus(0);
             }
         }
+        printState();
 
     }
 
-    private boolean getRandomNumber() {
+    private void printState() {
+        if (status == 0) {
+            System.out.println("PC has burned down!");
+        } else if (status == 1) {
+            System.out.println("PC is ON!");
+        } else if (status == 2) {
+            System.out.println("PC is OFF!");
+        }
+    }
+
+    private boolean passedTest() {
         Random random = new Random();
         int oneZero = random.nextInt(2);
         System.out.println("ALARM! Input 0 or 1");
@@ -86,8 +92,8 @@ public class Computer {
         return cycleCounter;
     }
 
-    public void setCycleCounter(int cycleCounter) {
-        this.cycleCounter = cycleCounter;
+    public void incCycleCounter() {
+        this.cycleCounter++;
     }
 
     public int getStatus() {
