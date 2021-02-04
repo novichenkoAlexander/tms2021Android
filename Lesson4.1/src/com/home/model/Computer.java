@@ -25,42 +25,45 @@ public class Computer {
         System.out.println("Number of life cycle: " + lifeCycle);
     }
 
-    public boolean turnOn(int lifeCycle, boolean isDead) {
-        boolean state = false;
-        if (!isDead) {
-            if (lifeCycle == 0) {
-                System.out.println("PC has burned down! Out of life cycles! ");
-                state = true;
-            } else {
-                System.out.println("PC is turning on...");
-                if (getRandomNumber()) {
-                    System.out.println("PC is ON!");
+    public void turnOn() {
+        if (cycleCounter < lifeCycle) {
+            if (status == 2) {                  // 2 - pc is Off
+                if (lifeCycle == 0) {
+                    System.out.println("PC has burned down! Out of life cycles! ");
+                    setStatus(0);
                 } else {
-                    System.out.println("PC has burned down!!!");
-                    state = true;
+                    System.out.println("PC is turning on...");
+                    if (getRandomNumber()) {
+                        System.out.println("PC is ON!");
+                        setStatus(1);
+                    } else {
+                        System.out.println("PC has burned down!!!");
+                        setStatus(0);
+                    }
                 }
             }
+            if (status == 0) {
+                System.out.println("PC has burned down!!!");
+                setStatus(0);
+            }
         } else {
-            System.out.println("PC has burned down!!!");
+            System.out.println("PC has burned down! Out of life cycles! ");
+            setStatus(0);
         }
         return state;
 
     }
 
-    public boolean turnOff(boolean isDead) {
-        boolean deathState = false;
-        if (!isDead) {
+    public void turnOff() {
+        if (status == 1) {      // PC is on
             System.out.println("PC is turning off...");
             if (getRandomNumber()) {
                 System.out.println("PC is OFF!");
             } else {
                 System.out.println("PC has burned down!!!");
-                deathState = true;
+                setStatus(0);
             }
-        } else {
-            deathState = true;
         }
-        return deathState;
 
     }
 

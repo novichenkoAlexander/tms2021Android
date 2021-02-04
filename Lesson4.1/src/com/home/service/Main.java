@@ -10,17 +10,9 @@ public class Main {
                 Reader.readInt("Life Cycles"));
         computer.info();
 
-        int lifeCycles = computer.getLifeCycle();
-
-        while (lifeCycles >= 0) {
-            boolean isDead = false;
-            isDead = computer.turnOn(lifeCycles, isDead);
-            isDead = computer.turnOff(isDead);
-            lifeCycles--;
-            if (isDead) {
-                break;
-            }
-        }
+        computer.turnOn();
+        computer.turnOff();
+        computer.turnOn();
     }
 }
 
