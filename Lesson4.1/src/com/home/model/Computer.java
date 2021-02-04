@@ -35,18 +35,12 @@ public class Computer {
     public void turnOn() {
         if (cycleCounter < lifeCycle) {
             if (status == 2) {                  // 2 - pc is Off
-                if (lifeCycle == 0) {
-                    setStatus(0);
+                System.out.println("PC is turning on...");
+                if (passedTest()) {
+                    setStatus(1);
                 } else {
-                    System.out.println("PC is turning on...");
-                    if (passedTest()) {
-                        setStatus(1);
-                    } else {
-                        setStatus(0);
-                    }
+                    setStatus(0);
                 }
-            } else if (status == 0) {
-                setStatus(0);
             }
         } else {
             System.out.println("Out of life cycles! ");
