@@ -22,22 +22,31 @@ public class Main {
         Address countryAddress = new Address(country);
         Address allAddress = new Address(country, city);
 
-
+        /*
+            Creating list of people
+         */
         PersonsRegistry registry = new PersonsRegistry(ConsoleInput.createPeople());
         System.out.println("Number of people living in " + country + " : " + registry.countPeople(country) + "\n");
         List<Person> people = registry.getListOfPeople(country);
         System.out.println("People living in " + country + " : ");
         registry.listToString(people);
-        System.out.println("");
 
         System.out.println("Number of people living in " + country + "," + city + ": " +
                 registry.countPeople(allAddress) + "\n");
         List<Person> people1 = registry.getListOfPeople(allAddress);
         System.out.println("People living in " + country + "," + city + " : ");
         registry.listToString(people1);
-        System.out.println("");
 
-        MilitaryOffice office = new MilitaryOffice(registry);
+        // Creating military unit
+//        MilitaryUnit unit1 = new MilitaryUnit(2);
+//        MilitaryUnit unit2 = new MilitaryUnit(3);
+//        MilitaryUnit unit3 = new MilitaryUnit(1);
+//        MilitaryUnit unit4 = new MilitaryUnit(2);
+        List<MilitaryUnit> unitList = ConsoleInput.createMilitaryOffice();
+
+
+        // Creating military office
+        MilitaryOffice office = new MilitaryOffice(registry,unitList);
 
         /*
           List of healthy men in Belarus & Minsk
@@ -45,17 +54,8 @@ public class Main {
         List<Person> listOfHealthyMen = office.getListOfHealthyMen(allAddress);
         office.listToString(listOfHealthyMen, allAddress);
 
-        /*
-          List of healthy men in whole Belarus
-         */
-        countryAddress.setCity("");
-        listOfHealthyMen = office.getListOfHealthyMen(country);
-        office.listToString(listOfHealthyMen, countryAddress);
 
-        MilitaryUnit unit = new MilitaryUnit(2);
-        System.out.println(unit.getCurrentNumberOfSoldiers());
-        unit.addNewRecruit(registry.getListOfPeople("Belarus").get(0));
-        System.out.println(unit.getCurrentNumberOfSoldiers());
+
 
     }
 }

@@ -6,10 +6,16 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class MilitaryOffice {
-    PersonsRegistry registry;
+    private final PersonsRegistry registry;
+    private List<MilitaryUnit> militaryUnit;
 
     public MilitaryOffice(PersonsRegistry registry) {
         this.registry = registry;
+    }
+
+    public MilitaryOffice(PersonsRegistry registry, List<MilitaryUnit> militaryUnit) {
+        this.registry = registry;
+        this.militaryUnit = militaryUnit;
     }
 
     public List<Person> getListOfHealthyMen(Address address) {

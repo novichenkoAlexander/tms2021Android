@@ -1,6 +1,7 @@
 package com.home.service;
 
 import com.home.model.Address;
+import com.home.model.MilitaryUnit;
 import com.home.model.Person;
 
 import java.util.LinkedList;
@@ -111,6 +112,20 @@ public class ConsoleInput {
             people.add(ConsoleInput.readPerson());
         }
         return people;
+    }
+
+    /*
+     * method to create military units
+     */
+    public static List<MilitaryUnit>createMilitaryOffice(){
+        System.out.println("How many military units need?");
+        int numberOfUnits = readInt();
+        List<MilitaryUnit>units = new LinkedList<>();
+        for (int i = 0; i < numberOfUnits; i++){
+            System.out.println("Input max number of recruits in this unit: ");
+            units.add(new MilitaryUnit(ConsoleInput.readInt()));
+        }
+        return units;
     }
 
 
