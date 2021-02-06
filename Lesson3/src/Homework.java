@@ -1,6 +1,4 @@
-import java.util.Arrays;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Homework {
 
@@ -133,25 +131,48 @@ public class Homework {
      * (optional)
      * Method should print all prime numbers < 1000
      */
-    public static void printPrimeNumbers() {
-        int[] array = new int[1000];
-        for (int i = 0; i < array.length; i++) {
-            array[i] = i;
-        }
-        boolean isPrime = true;
-        for (int i = 2; i < array.length; i++) {
-            for (int j = 2; j < i; j++) {
-                if (i % j == 0) {
-                    isPrime = false;
-                    break;
-                }
-            }
-            if (isPrime) {
-                array[i] = i;
-            }
+//    public static void printPrimeNumbers() {
+//        int[] array = new int[1000];
+//        for (int i = 0; i < array.length; i++) {
+//            array[i] = i;
+//        }
+//        boolean isPrime = true;
+//        for (int i = 2; i < array.length; i++) {
+//            for (int j = 2; j < i; j++) {
+//                if (i % j == 0) {
+//                    isPrime = false;
+//                    break;
+//                }
+//            }
+//            if (isPrime) {
+//                array[i] = i;
+//            }
+//
+//        }
+//        System.out.println(Arrays.toString(array));
+//
+//    }
 
+    /**
+     * The sieve of Eratosthenes
+     */
+    public static void printPrimeNumbers() {
+        int n = 100;
+        Boolean[] array = new Boolean[n + 1];
+        Arrays.fill(array, true);
+        for (int i = 2; Math.pow(i, 2) <= n; i++) {
+            if (!array[i]) {
+                continue;
+            }
+            for (int j = (int) Math.pow(i, 2); j <= n; j += i) {
+                array[j] = false;
+            }
         }
-        System.out.println(Arrays.toString(array));
+        for (int i = 2; i < array.length; i++) {
+            if (array[i]) {
+                System.out.print(i+ " ");
+            }
+        }
 
     }
 
