@@ -7,11 +7,8 @@ import java.util.List;
 
 public class MilitaryOffice {
     private final PersonsRegistry registry;
-    private List<MilitaryUnit> militaryUnit;
+    private final List<MilitaryUnit> militaryUnit;
 
-    public MilitaryOffice(PersonsRegistry registry) {
-        this.registry = registry;
-    }
 
     public MilitaryOffice(PersonsRegistry registry, List<MilitaryUnit> militaryUnit) {
         this.registry = registry;
@@ -65,7 +62,7 @@ public class MilitaryOffice {
 
     public static boolean checkForSuitability(Person person) {
         int age = person.getAge();
-        if (person.getGender().equals("male") && (age >= 18 && age <= 27)) {
+        if (person.getGender().equals("male") && (age >= 18 && age < 27)) {
             return true;
         } else {
             System.out.println(person.getName() + " is not suitable for service!");

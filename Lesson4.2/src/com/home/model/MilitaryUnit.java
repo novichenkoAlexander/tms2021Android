@@ -16,7 +16,7 @@ public class MilitaryUnit {
 
     public void addNewRecruit(Person person) {
         if (currentNumberOfRecruits < maxNumberOfRecruits) {
-            if (MilitaryOffice.checkForSuitability(person) && checkForSimilarity(person)) {
+            if (MilitaryOffice.checkForSuitability(person) && checkForSimilarRecruit(person)) {
                 recruitList.add(person);
                 currentNumberOfRecruits = recruitList.size();
             }
@@ -25,15 +25,21 @@ public class MilitaryUnit {
         }
     }
 
-    private boolean checkForSimilarity(Person person){
-        if (recruitList.contains(person)){
-            System.out.println("Recruit " + person.getName() + " is already serving!");
+    private boolean checkForSimilarRecruit(Person person) {
+        for (Person recruit : recruitList) {
+            if (recruit.getName().equals(person.getName()) && recruit.getAge() == person.getAge()
+                    && recruit.getHeight() == person.getHeight()) {
+                System.out.println("Recruit " + person.getName() + " is already serving in this Unit!");
+                return false;
+            }
+        }
+        if (recruitList.contains(person)) {
+            System.out.println("Recruit " + person.getName() + " is already serving in this Unit!");
             return false;
-        }else {
+        } else {
             return true;
         }
     }
-    //TODO: check for same soldier in military unit!
 
     public int getNumberOfFreePlaces() {
         return maxNumberOfRecruits - currentNumberOfRecruits;

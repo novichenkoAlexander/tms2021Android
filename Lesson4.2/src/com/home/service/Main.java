@@ -42,22 +42,24 @@ public class Main {
         /**
          * Hardcode creating people
          */
-        Person oleg = new Person(20,"Oleg",new Address("Belarus","Minsk"),"male",180);
-        Person alex = new Person(16,"Alex",new Address("Belarus","Minsk"),"male",170);
-        Person ivan = new Person(25,"Ivan",new Address("Belarus","Minsk"),"male",175);
-        Person viktor = new Person(22,"Viktor",new Address("Belarus","Grodno"),"male",185);
-        Person olga = new Person(23,"Olga",new Address("Belarus","Minsk"),"female",165);
-        Person vika = new Person(20,"Vika",new Address("Belarus","Vitebsk"),"female",177);
-        Person pavel = new Person(30,"Pavel",new Address("Belarus","Minsk"),"male",175);
-        Person max = new Person(26,"Max",new Address("Belarus","Minsk"),"male",170);
-        Person vlad = new Person(27,"Vlad",new Address("Belarus","Minsk"),"male",170);
-        Person vova = new Person(23,"Vova",new Address("Belarus","Minsk"),"male",175);
-        Person gena = new Person(22,"Gena",new Address("Belarus","Minsk"),"male",170);
-        Person peter = new Person(25,"Peter",new Address("Belarus","Minsk"),"male",180);
+        Person oleg = new Person(20, "Oleg", new Address("Belarus", "Minsk"), "male", 180);
+        Person oleg1 = new Person(20, "Oleg", new Address("Belarus", "Minsk"), "male", 180);
+        Person alex = new Person(16, "Alex", new Address("Belarus", "Minsk"), "male", 170);
+        Person ivan = new Person(25, "Ivan", new Address("Belarus", "Minsk"), "male", 175);
+        Person viktor = new Person(22, "Viktor", new Address("Belarus", "Grodno"), "male", 185);
+        Person olga = new Person(23, "Olga", new Address("Belarus", "Minsk"), "female", 165);
+        Person vika = new Person(20, "Vika", new Address("Belarus", "Vitebsk"), "female", 177);
+        Person pavel = new Person(30, "Pavel", new Address("Belarus", "Minsk"), "male", 175);
+        Person max = new Person(26, "Max", new Address("Belarus", "Minsk"), "male", 170);
+        Person vlad = new Person(27, "Vlad", new Address("Belarus", "Minsk"), "male", 170);
+        Person vova = new Person(23, "Vova", new Address("Belarus", "Minsk"), "male", 175);
+        Person gena = new Person(22, "Gena", new Address("Belarus", "Minsk"), "male", 170);
+        Person peter = new Person(25, "Peter", new Address("Belarus", "Minsk"), "male", 180);
 
 
-        List<Person>listForRegistry = new LinkedList<>();
+        List<Person> listForRegistry = new LinkedList<>();
         listForRegistry.add(oleg);
+        listForRegistry.add(oleg1);
         listForRegistry.add(alex);
         listForRegistry.add(ivan);
         listForRegistry.add(viktor);
@@ -66,6 +68,7 @@ public class Main {
         listForRegistry.add(pavel);
         listForRegistry.add(max);
         listForRegistry.add(vlad);
+        listForRegistry.add(oleg);
         listForRegistry.add(vova);
         listForRegistry.add(gena);
         listForRegistry.add(peter);     //adding two equal persons
@@ -78,11 +81,11 @@ public class Main {
         List<MilitaryUnit> listOfUnits = ConsoleInput.createMilitaryUnit();
 
         // Creating military office
-        MilitaryOffice office = new MilitaryOffice(registry,listOfUnits);
+        MilitaryOffice office = new MilitaryOffice(registry, listOfUnits);
         office.distributeRecruits(country);
 
         System.out.println("\nThe list of recruits: \n");
-        for(MilitaryUnit unit : listOfUnits){
+        for (MilitaryUnit unit : listOfUnits) {
             unit.printAllRecruits();
             System.out.println("");
         }
