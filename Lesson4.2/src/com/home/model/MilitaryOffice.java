@@ -24,22 +24,11 @@ public class MilitaryOffice {
     }
 
     public List<Person> distributeRecruits(Address address) {
-        List<Person> listOfMen = new LinkedList<>();
-        for (Person person : registry.getListOfPeople(address)) {
-            if (checkForSuitability(person)) {
-                listOfMen.add(person);
-            }
-        }
-        return listOfMen;
+        return filterPeopleBySuitability(registry.getListOfPeople(address));
     }
 
     public void distributeRecruits(String country) {
-        List<Person> listOfMen = new LinkedList<>();
-        for (Person person : registry.getListOfPeople(country)) {
-            if (checkForSuitability(person)) {
-                listOfMen.add(person);
-            }
-        }
+        List<Person> listOfMen = filterPeopleBySuitability(registry.getListOfPeople(country));
         for (Person recruit : listOfMen) {
             int freePlaces = 0;
             for (MilitaryUnit unit : militaryUnit) {        // distribution in units one by one
@@ -49,7 +38,7 @@ public class MilitaryOffice {
                 }
             }
             for (MilitaryUnit unit : militaryUnit) {
-                freePlaces = unit.getNumberOfFreePlaces();
+                freePlaces += unit.getNumberOfFreePlaces();
             }
             if (freePlaces == 0) {
                 System.out.println("All military units are full!");
@@ -60,7 +49,17 @@ public class MilitaryOffice {
 
     }
 
-    public static boolean checkForSuitability(Person person) {
+    private List<Person> filterPeopleBySuitability(List<Person> people) {
+        List<Person> listOfMen = new LinkedList<>();
+        for (Person person : people) {
+            if (isPersonSuitable(person)) {
+                listOfMen.add(person);
+            }
+        }
+        return listOfMen;
+    }
+
+    public static boolean isPersonSuitable(Person person) {
         int age = person.getAge();
         if (person.getGender().equals("male") && (age >= 18 && age < 27)) {
             return true;

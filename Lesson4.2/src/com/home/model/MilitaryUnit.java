@@ -16,7 +16,7 @@ public class MilitaryUnit {
 
     public void addNewRecruit(Person person) {
         if (currentNumberOfRecruits < maxNumberOfRecruits) {
-            if (MilitaryOffice.checkForSuitability(person) && checkForSimilarRecruit(person)) {
+            if (MilitaryOffice.isPersonSuitable(person) && isSimilarRecruitExists(person)) {
                 recruitList.add(person);
                 currentNumberOfRecruits = recruitList.size();
             }
@@ -25,7 +25,7 @@ public class MilitaryUnit {
         }
     }
 
-    private boolean checkForSimilarRecruit(Person person) {
+    private boolean isSimilarRecruitExists(Person person) {
         boolean check = true;
         if (recruitList.contains(person)) {
             check = false;
