@@ -26,19 +26,26 @@ public class MilitaryUnit {
     }
 
     private boolean checkForSimilarRecruit(Person person) {
-        for (Person recruit : recruitList) {
-            if (recruit.getName().equals(person.getName()) && recruit.getAge() == person.getAge()
-                    && recruit.getHeight() == person.getHeight()) {
-                System.out.println("Recruit " + person.getName() + " is already serving in this Unit!");
-                return false;
-            }
-        }
+        boolean check = true;
         if (recruitList.contains(person)) {
-            System.out.println("Recruit " + person.getName() + " is already serving in this Unit!");
-            return false;
+            check = false;
         } else {
-            return true;
+            for (Person recruit : recruitList) {
+                if (recruit.getName().equals(person.getName()) && recruit.getHeight() == person.getHeight()
+                        && recruit.getAge() == person.getAge()) {
+                    check = false;
+                    break;
+                }
+            }
+
         }
+        printState(person, check);
+        return check;
+    }
+
+    private void printState(Person person, boolean check) {
+        if (!check)
+            System.out.println("Recruit " + person.getName() + " is already serving in this Unit!");
     }
 
     public int getNumberOfFreePlaces() {

@@ -52,7 +52,7 @@ public class MilitaryOffice {
                 freePlaces = unit.getNumberOfFreePlaces();
             }
             if (freePlaces == 0) {
-                System.out.println("All military units full");
+                System.out.println("All military units are full!");
                 break;
             }
 

@@ -58,8 +58,8 @@ public class Main {
 
 
         List<Person> listForRegistry = new LinkedList<>();
-        listForRegistry.add(oleg);
-        listForRegistry.add(oleg1);
+        listForRegistry.add(oleg);      //
+        listForRegistry.add(oleg1);     //adding 2 equal person
         listForRegistry.add(alex);
         listForRegistry.add(ivan);
         listForRegistry.add(viktor);
@@ -71,8 +71,8 @@ public class Main {
         listForRegistry.add(oleg);
         listForRegistry.add(vova);
         listForRegistry.add(gena);
-        listForRegistry.add(peter);     //adding two equal persons
         listForRegistry.add(peter);     //
+        listForRegistry.add(peter);     //adding two equal links
 
 
         PersonsRegistry registry = new PersonsRegistry(listForRegistry);
