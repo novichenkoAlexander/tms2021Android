@@ -4,38 +4,58 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class MilitaryUnit {
-    private int maxNumberOfSoldiers;
-    private int currentNumberOfSoldiers;
-    private List<Person>recruitList = new LinkedList<>();
 
-    public MilitaryUnit(int maxNumberOfSoldiers) {
-        this.maxNumberOfSoldiers = maxNumberOfSoldiers;
+    private final int maxNumberOfRecruits;
+    private int currentNumberOfRecruits;
+    private final List<Person> recruitList;
+
+    public MilitaryUnit(int maxNumberOfRecruits) {
+        this.maxNumberOfRecruits = maxNumberOfRecruits;
+        recruitList = new LinkedList<>();
     }
 
-    public void addNewRecruit(Person person){
-        currentNumberOfSoldiers = recruitList.size();
-        if(currentNumberOfSoldiers < maxNumberOfSoldiers){
-            recruitList.add(person);
-            currentNumberOfSoldiers++;
-        }else {
+    public void addNewRecruit(Person person) {
+        if (currentNumberOfRecruits < maxNumberOfRecruits) {
+            if (MilitaryOffice.checkForSuitability(person) && checkForSimilarity(person)) {
+                recruitList.add(person);
+                currentNumberOfRecruits = recruitList.size();
+            }
+        } else {
             System.out.println("Military unit is full!");
+        }
+    }
+
+    private boolean checkForSimilarity(Person person){
+        if (recruitList.contains(person)){
+            System.out.println("Recruit " + person.getName() + " is already serving!");
+            return false;
+        }else {
+            return true;
         }
     }
     //TODO: check for same soldier in military unit!
 
-    public int getNumberOfVacantPlaces(){
-        return maxNumberOfSoldiers - currentNumberOfSoldiers;
+    public int getNumberOfFreePlaces() {
+        return maxNumberOfRecruits - currentNumberOfRecruits;
     }
 
-    public List<Person>getListOfRecruits(){
+    public List<Person> getListOfRecruits() {
         return recruitList;
     }
 
-    public int getMaxNumberOfSoldiers() {
-        return maxNumberOfSoldiers;
+    public void printAllRecruits() {
+        for (Person recruit : recruitList) {
+            System.out.println(recruit.getName() + ", "
+                    + recruit.getAge() + " years, "
+                    + recruit.getHeight() + " cm");
+        }
     }
 
-    public int getCurrentNumberOfSoldiers() {
-        return currentNumberOfSoldiers;
+    public int getMaxNumberOfRecruits() {
+        return maxNumberOfRecruits;
+    }
+
+    public int getCurrentNumberOfRecruits() {
+        return currentNumberOfRecruits;
     }
 }

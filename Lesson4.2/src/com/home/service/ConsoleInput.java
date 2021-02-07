@@ -117,8 +117,8 @@ public class ConsoleInput {
     /*
      * method to create military units
      */
-    public static List<MilitaryUnit>createMilitaryOffice(){
-        System.out.println("How many military units need?");
+    public static List<MilitaryUnit> createMilitaryUnit(){
+        System.out.println("Input number of military units: ");
         int numberOfUnits = readInt();
         List<MilitaryUnit>units = new LinkedList<>();
         for (int i = 0; i < numberOfUnits; i++){

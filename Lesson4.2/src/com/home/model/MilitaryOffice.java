@@ -18,30 +18,61 @@ public class MilitaryOffice {
         this.militaryUnit = militaryUnit;
     }
 
-    public List<Person> getListOfHealthyMen(Address address) {
+    public int getNumberOfRequiredRecruits() {
+        int requiredNumberOfRecruits = 0;
+        for (MilitaryUnit unit : militaryUnit) {
+            requiredNumberOfRecruits += unit.getNumberOfFreePlaces();
+        }
+        return requiredNumberOfRecruits;
+    }
+
+    public List<Person> distributeRecruits(Address address) {
         List<Person> listOfMen = new LinkedList<>();
         for (Person person : registry.getListOfPeople(address)) {
-            int age = person.getAge();
-            checkForSuitability(listOfMen,person,age);
+            if (checkForSuitability(person)) {
+                listOfMen.add(person);
+            }
         }
         return listOfMen;
     }
 
-    public List<Person> getListOfHealthyMen(String country) {
+    public void distributeRecruits(String country) {
         List<Person> listOfMen = new LinkedList<>();
         for (Person person : registry.getListOfPeople(country)) {
-            int age = person.getAge();
-            checkForSuitability(listOfMen,person,age);
+            if (checkForSuitability(person)) {
+                listOfMen.add(person);
+            }
         }
-        return listOfMen;
+        for (Person recruit : listOfMen) {
+            int freePlaces = 0;
+            for (MilitaryUnit unit : militaryUnit) {        // distribution in units one by one
+                if (unit.getNumberOfFreePlaces() > 0) {
+                    unit.addNewRecruit(recruit);
+                    break;
+                }
+            }
+            for (MilitaryUnit unit : militaryUnit) {
+                freePlaces = unit.getNumberOfFreePlaces();
+            }
+            if (freePlaces == 0) {
+                System.out.println("All military units full");
+                break;
+            }
+
+        }
+
     }
 
-    private static boolean checkForSuitability(List<Person> listOfMen,Person person, int age){
+    public static boolean checkForSuitability(Person person) {
+        int age = person.getAge();
         if (person.getGender().equals("male") && (age >= 18 && age <= 27)) {
-            listOfMen.add(person);
-        }return true;
-    }
+            return true;
+        } else {
+            System.out.println(person.getName() + " is not suitable for service!");
+            return false;
+        }
 
+    }
 
     public void listToString(List<Person> people, Address address) {
         System.out.println("List of men fit for military service in " + address.toString() + ": ");
