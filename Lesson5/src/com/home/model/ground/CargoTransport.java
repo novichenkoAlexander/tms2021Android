@@ -1,13 +1,27 @@
 package com.home.model.ground;
 
-import com.home.model.Transport;
-import com.home.model.ground.GroundTransport;
+import com.home.service.Reader;
+
+import java.util.Random;
 
 public class CargoTransport extends GroundTransport {
-    private double loadCapacity;
+    private double loadCapacity; // in tonnes
 
     public CargoTransport(int power, double maxSpeed, double weight, String brand) {
         super(power, maxSpeed, weight, brand);
+    }
+
+    public CargoTransport(int power, double maxSpeed, double weight, String brand, double loadCapacity) {
+        super(power, maxSpeed, weight, brand);
+        this.loadCapacity = loadCapacity;
+    }
+
+    public double getLoadCapacity() {
+        return loadCapacity;
+    }
+
+    public void setLoadCapacity(double loadCapacity) {
+        this.loadCapacity = loadCapacity;
     }
 
     @Override
@@ -18,7 +32,20 @@ public class CargoTransport extends GroundTransport {
     @Override
     public double getPowerInWatts() {
         return getPower() * 0.74;
-
     }
+
+    public boolean isLoaded(){
+        System.out.println("Input mass of cargo in tonnes: ");
+        Reader reader = new Reader();
+        double cargo = reader.readDouble();
+        if(cargo <= loadCapacity){
+            System.out.println("The truck is loaded!");
+            return true;
+        }else {
+            System.out.println("You need a bigger truck!");
+            return false;
+        }
+    }
+
 
 }
