@@ -1,11 +1,19 @@
 package com.home.model.air;
 
+import com.home.service.Reader;
+
 public class CivilTransport extends AirTransport {
-    private int passengers;
+    private int passengersCapacity;
     private boolean isBusinessClassAvailable;
 
     public CivilTransport(int power, double maxSpeed, double weight, String brand) {
         super(power, maxSpeed, weight, brand);
+    }
+
+    public CivilTransport(int power, double maxSpeed, double weight, String brand, int passengersCapacity, boolean isBusinessClassAvailable) {
+        super(power, maxSpeed, weight, brand);
+        this.passengersCapacity = passengersCapacity;
+        this.isBusinessClassAvailable = isBusinessClassAvailable;
     }
 
     @Override
@@ -14,13 +22,27 @@ public class CivilTransport extends AirTransport {
     }
 
     @Override
-    public String printInfo() {
+    public void printInfo() {
         if (isBusinessClassAvailable) {
-            return "This air transport has capacity of " + passengers + "and has business class seats. Power is : " +
-                    +getPowerInWatts() + "kW";
+            System.out.println("This plane has capacity of " + passengersCapacity +
+                    " passengers and has business class seats. Power is : " +
+                    +getPowerInWatts() + "kW");
         } else
-            return "This air transport doesn't have business class seats. It can take " + passengers + "passengers. " +
-                    "Power is:" + getPowerInWatts() + "kW";
+            System.out.println("This plane doesn't have business class seats. It can take " + passengersCapacity +
+                    "passengers. " + "Power is:" + getPowerInWatts() + "kW");
+    }
+
+    public boolean isLoaded(){
+        System.out.println("Input number of passengers: ");
+        Reader reader = new Reader();
+        int passengers = reader.readInt();
+        if (passengers <= passengersCapacity){
+            System.out.println("The plane is loaded with passengers!");
+            return true;
+        }else {
+            System.out.println("You need a bigger plane!");
+            return false;
+        }
     }
 
 }

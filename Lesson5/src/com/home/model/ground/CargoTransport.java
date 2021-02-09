@@ -2,8 +2,6 @@ package com.home.model.ground;
 
 import com.home.service.Reader;
 
-import java.util.Random;
-
 public class CargoTransport extends GroundTransport {
     private double loadCapacity; // in tonnes
 
@@ -25,8 +23,9 @@ public class CargoTransport extends GroundTransport {
     }
 
     @Override
-    public String printInfo() {
-        return "This cargo transport have load capacity of " + loadCapacity + "." + "Power is: " + getPowerInWatts() + " kW ";
+    public void printInfo() {
+        System.out.println("This cargo transport have load capacity of " + loadCapacity + "." + "Power is: " + getPowerInWatts()
+                + " kW ");
     }
 
     @Override

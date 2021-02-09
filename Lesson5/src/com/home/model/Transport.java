@@ -21,7 +21,7 @@ public abstract class Transport {
 
     public abstract double getPowerInWatts();
 
-    public abstract String printInfo();
+    public abstract void printInfo();
 
     public int getPower() {
         return power;

@@ -21,10 +21,10 @@ public class PassengerTransport extends GroundTransport {
     }
 
     @Override
-    public String printInfo() {
-        return "This is passenger transport with " + bodyStyle + "body style. \n" +
+    public void printInfo() {
+        System.out.println("This is passenger transport with " + bodyStyle + " body style. \n" +
                 "It can take " + passengers + " passengers. \n" +
-                "It has power of: " + getPowerInWatts() + " kW ";
+                "It has power of: " + getPowerInWatts() + " kW ");
     }
 
     @Override

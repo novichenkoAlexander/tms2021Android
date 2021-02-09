@@ -14,14 +14,14 @@ public class MilitaryTransport extends AirTransport {
     }
 
     @Override
-    public String printInfo() {
+    public void printInfo() {
         System.out.println("The power is: " + getPowerInWatts() + "kW");
         if (isEjectionSystemAvailable) {
-            return "Pilot can eject.";
+            System.out.println("Pilot can eject.");
         }
         if (missiles != 0) {
-            return "This transport has " + missiles + " missiles on board";
+            System.out.println("This transport has " + missiles + " missiles on board");
         }
-        return "No missiles on board.";
+        System.out.println("No missiles on board.");
     }
 }
