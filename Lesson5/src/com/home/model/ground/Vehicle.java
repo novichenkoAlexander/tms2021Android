@@ -2,19 +2,19 @@ package com.home.model.ground;
 
 import com.home.service.Reader;
 
-public class PassengerTransport extends GroundTransport {
+public class Vehicle extends GroundTransport {
     private String bodyStyle;
     private int passengers;
 
-    public PassengerTransport(int power, double maxSpeed, double weight, String brand) {
+    public Vehicle(int power, double maxSpeed, double weight, String brand) {
         super(power, maxSpeed, weight, brand);
     }
 
-    public PassengerTransport(int power, double maxSpeed, double weight, String brand, double fuelFlow) {
+    public Vehicle(int power, double maxSpeed, double weight, String brand, double fuelFlow) {
         super(power, maxSpeed, weight, brand, fuelFlow);
     }
 
-    public PassengerTransport(int power, double maxSpeed, double weight, String brand, double fuelFlow, String bodyStyle, int passengers) {
+    public Vehicle(int power, double maxSpeed, double weight, String brand, double fuelFlow, String bodyStyle, int passengers) {
         super(power, maxSpeed, weight, brand, fuelFlow);
         this.bodyStyle = bodyStyle;
         this.passengers = passengers;

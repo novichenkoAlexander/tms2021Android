@@ -2,14 +2,14 @@ package com.home.model.ground;
 
 import com.home.service.Reader;
 
-public class CargoTransport extends GroundTransport {
+public class CargoVehicle extends GroundTransport {
     private double loadCapacity; // in tonnes
 
-    public CargoTransport(int power, double maxSpeed, double weight, String brand) {
+    public CargoVehicle(int power, double maxSpeed, double weight, String brand) {
         super(power, maxSpeed, weight, brand);
     }
 
-    public CargoTransport(int power, double maxSpeed, double weight, String brand, double loadCapacity) {
+    public CargoVehicle(int power, double maxSpeed, double weight, String brand, double loadCapacity) {
         super(power, maxSpeed, weight, brand);
         this.loadCapacity = loadCapacity;
     }

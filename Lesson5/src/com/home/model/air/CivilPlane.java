@@ -2,15 +2,15 @@ package com.home.model.air;
 
 import com.home.service.Reader;
 
-public class CivilTransport extends AirTransport {
+public class CivilPlane extends AirTransport {
     private int passengersCapacity;
     private boolean isBusinessClassAvailable;
 
-    public CivilTransport(int power, double maxSpeed, double weight, String brand) {
+    public CivilPlane(int power, double maxSpeed, double weight, String brand) {
         super(power, maxSpeed, weight, brand);
     }
 
-    public CivilTransport(int power, double maxSpeed, double weight, String brand, int passengersCapacity, boolean isBusinessClassAvailable) {
+    public CivilPlane(int power, double maxSpeed, double weight, String brand, int passengersCapacity, boolean isBusinessClassAvailable) {
         super(power, maxSpeed, weight, brand);
         this.passengersCapacity = passengersCapacity;
         this.isBusinessClassAvailable = isBusinessClassAvailable;
