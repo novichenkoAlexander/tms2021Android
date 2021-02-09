@@ -2,7 +2,7 @@ package com.home.service;
 
 import java.util.Scanner;
 
-public class Reader implements Readable{
+public class Reader implements Readable {
 
     private Scanner scanner;
 

@@ -2,7 +2,7 @@ package com.home.model;
 
 public abstract class Transport {
     /**
-     * power - in horsepower
+     * power - in horsepowers
      * maxSpeed - in km/h
      * weight - in kg
      * brand (fot ins.: Audi, BMW, Boing)

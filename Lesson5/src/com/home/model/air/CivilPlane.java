@@ -32,14 +32,14 @@ public class CivilPlane extends AirTransport {
                     "passengers. " + "Power is:" + getPowerInWatts() + "kW");
     }
 
-    public boolean isLoaded(){
+    public boolean isLoaded() {
         System.out.println("Input number of passengers: ");
         Reader reader = new Reader();
         int passengers = reader.readInt();
-        if (passengers <= passengersCapacity){
+        if (passengers <= passengersCapacity) {
             System.out.println("The plane is loaded with passengers!");
             return true;
-        }else {
+        } else {
             System.out.println("You need a bigger plane!");
             return false;
         }

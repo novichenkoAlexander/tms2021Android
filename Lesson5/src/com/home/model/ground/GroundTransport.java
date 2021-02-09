@@ -3,7 +3,7 @@ package com.home.model.ground;
 import com.home.model.Transport;
 
 public abstract class GroundTransport extends Transport {
-    private int wheelsNumber;
+    private int numberOfWheels;
     private double fuelFlow;    // litres/100 km
 
     public GroundTransport(int power, double maxSpeed, double weight, String brand, double fuelFlow) {
@@ -15,12 +15,12 @@ public abstract class GroundTransport extends Transport {
         super(power, maxSpeed, weight, brand);
     }
 
-    public int getWheelsNumber() {
-        return wheelsNumber;
+    public int getNumberOfWheels() {
+        return numberOfWheels;
     }
 
-    public void setWheelsNumber(int wheelsNumber) {
-        this.wheelsNumber = wheelsNumber;
+    public void setNumberOfWheels(int numberOfWheels) {
+        this.numberOfWheels = numberOfWheels;
     }
 
     public double getFuelFlow() {

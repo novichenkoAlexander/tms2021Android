@@ -33,14 +33,14 @@ public class CargoVehicle extends GroundTransport {
         return getPower() * 0.74;
     }
 
-    public boolean isLoaded(){
+    public boolean isLoaded() {
         System.out.println("Input mass of cargo in tonnes: ");
         Reader reader = new Reader();
         double cargo = reader.readDouble();
-        if(cargo <= loadCapacity){
+        if (cargo <= loadCapacity) {
             System.out.println("The truck is loaded!");
             return true;
-        }else {
+        } else {
             System.out.println("You need a bigger truck!");
             return false;
         }
