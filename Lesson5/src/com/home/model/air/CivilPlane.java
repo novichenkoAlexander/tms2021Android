@@ -17,19 +17,14 @@ public class CivilPlane extends AirTransport {
     }
 
     @Override
-    public double getPowerInWatts() {
-        return getPower() * 0.74;
-    }
-
-    @Override
     public void printInfo() {
         if (isBusinessClassAvailable) {
             System.out.println("This plane has capacity of " + passengersCapacity +
-                    " passengers and has business class seats. Power is : " +
-                    +getPowerInWatts() + "kW");
-        } else
+                    " passengers and has business class seats. Power is : " + getPowerInWatts() + "kW");
+        } else {
             System.out.println("This plane doesn't have business class seats. It can take " + passengersCapacity +
                     "passengers. " + "Power is:" + getPowerInWatts() + "kW");
+        }
     }
 
     public boolean isLoaded() {

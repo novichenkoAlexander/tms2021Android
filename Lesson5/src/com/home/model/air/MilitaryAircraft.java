@@ -15,11 +15,6 @@ public class MilitaryAircraft extends AirTransport {
     }
 
     @Override
-    public double getPowerInWatts() {
-        return getPower() * 0.74;
-    }
-
-    @Override
     public void printInfo() {
         System.out.println("The power is: " + getPowerInWatts() + "kW");
         if (isEjectionSystemAvailable) {
@@ -38,6 +33,7 @@ public class MilitaryAircraft extends AirTransport {
             System.out.println("No missiles available");
         }else {
             System.out.println("Missile away!");
+            missiles--;
         }
     }
 

@@ -27,11 +27,6 @@ public class Vehicle extends GroundTransport {
                 "It has power of: " + getPowerInWatts() + " kW ");
     }
 
-    @Override
-    public double getPowerInWatts() {
-        return getPower() * 0.74;
-    }
-
     public void calculateDistanceAtMaxSpeed() {
         double distance = 0;
         double maxSpeed = getMaxSpeed();

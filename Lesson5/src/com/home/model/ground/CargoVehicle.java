@@ -28,11 +28,6 @@ public class CargoVehicle extends GroundTransport {
                 + " kW ");
     }
 
-    @Override
-    public double getPowerInWatts() {
-        return getPower() * 0.74;
-    }
-
     public boolean isLoaded() {
         System.out.println("Input mass of cargo in tonnes: ");
         Reader reader = new Reader();

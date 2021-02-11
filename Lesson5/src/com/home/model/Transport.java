@@ -19,7 +19,9 @@ public abstract class Transport {
         this.brand = brand;
     }
 
-    public abstract double getPowerInWatts();
+    public double getPowerInWatts(){
+        return getPower() * 0.74;
+    }
 
     public abstract void printInfo();
 
