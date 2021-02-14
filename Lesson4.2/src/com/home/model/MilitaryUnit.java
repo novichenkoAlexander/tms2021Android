@@ -1,5 +1,7 @@
 package com.home.model;
 
+import com.home.exceptions.MilitaryUnitIsFullException;
+
 import java.util.LinkedList;
 import java.util.List;
 

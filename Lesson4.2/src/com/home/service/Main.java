@@ -1,5 +1,6 @@
 package com.home.service;
 
+import com.home.exceptions.MilitaryUnitIsFullException;
 import com.home.model.Address;
 import com.home.model.MilitaryOffice;
 import com.home.model.MilitaryUnit;

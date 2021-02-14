@@ -37,6 +37,9 @@ public class MilitaryOffice {
                 try {
                     militaryUnit.get(i).addNewRecruit(recruit);
                     break;
+                } catch (MilitaryUnitIsFullException e) {
+                    e.printStackTrace();
+                    unitNumber++;
                 }
             }
             for (MilitaryUnit unit : militaryUnit) {
