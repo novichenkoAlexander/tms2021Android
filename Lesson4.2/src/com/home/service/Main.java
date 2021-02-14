@@ -16,7 +16,7 @@ public class Main {
     public static final String city = "Minsk";
 
 
-    public static void main(String[] args) throws MilitaryUnitIsFullException {
+    public static void main(String[] args){
 
         /**
          * Creating people from console

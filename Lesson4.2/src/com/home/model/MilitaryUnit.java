@@ -24,7 +24,6 @@ public class MilitaryUnit {
                 System.out.println(person.getName() + " has been added to Military Unit!");
             }
         } else {
-            //System.out.println("Military unit is full!");
             throw new MilitaryUnitIsFullException("Military unit is full!");
         }
     }
