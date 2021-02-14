@@ -15,7 +15,7 @@ public class Main {
     public static final String city = "Minsk";
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws MilitaryUnitIsFullException {
 
         /**
          * Creating people from console
@@ -59,6 +59,7 @@ public class Main {
 
         List<Person> listForRegistry = new LinkedList<>();
         listForRegistry.add(oleg);      //
+        listForRegistry.add(vova);
         listForRegistry.add(oleg1);     //adding 2 equal person
         listForRegistry.add(alex);
         listForRegistry.add(ivan);
@@ -69,7 +70,6 @@ public class Main {
         listForRegistry.add(max);
         listForRegistry.add(vlad);
         listForRegistry.add(oleg);
-        listForRegistry.add(vova);
         listForRegistry.add(gena);
         listForRegistry.add(peter);     //
         listForRegistry.add(peter);     //adding two equal links

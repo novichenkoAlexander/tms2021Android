@@ -1,5 +1,6 @@
 package com.home.model;
 
+import com.home.exceptions.MilitaryUnitIsFullException;
 import com.home.service.PersonsRegistry;
 
 import java.util.LinkedList;
@@ -27,13 +28,14 @@ public class MilitaryOffice {
         return filterPeopleBySuitability(registry.getListOfPeople(address));
     }
 
-    public void distributeRecruits(String country) {
+    public void distributeRecruits(String country)  {
         List<Person> listOfMen = filterPeopleBySuitability(registry.getListOfPeople(country));
         for (Person recruit : listOfMen) {
             int freePlaces = 0;
-            for (MilitaryUnit unit : militaryUnit) {        // distribution in units one by one
-                if (unit.getNumberOfFreePlaces() > 0) {
-                    unit.addNewRecruit(recruit);
+            int unitNumber = 0;
+            for (int i = unitNumber; i < militaryUnit.size(); i++) {        // distribution in units one by one
+                try {
+                    militaryUnit.get(i).addNewRecruit(recruit);
                     break;
                 }
             }
