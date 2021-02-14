@@ -1,5 +1,7 @@
 package com.home.model;
 
+import com.home.exceptions.MilitaryUnitIsFullException;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,14 +16,15 @@ public class MilitaryUnit {
         recruitList = new LinkedList<>();
     }
 
-    public void addNewRecruit(Person person) {
+    public void addNewRecruit(Person person) throws MilitaryUnitIsFullException {
         if (currentNumberOfRecruits < maxNumberOfRecruits) {
             if (MilitaryOffice.isPersonSuitable(person) && isSimilarRecruitExists(person)) {
                 recruitList.add(person);
                 currentNumberOfRecruits = recruitList.size();
+                System.out.println(person.getName() + " has been added to Military Unit!");
             }
         } else {
-            System.out.println("Military unit is full!");
+            throw new MilitaryUnitIsFullException("Military unit is full!");
         }
     }
 
