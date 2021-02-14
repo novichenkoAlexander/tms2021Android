@@ -59,20 +59,10 @@ public class Run {
         /**
          * Getting most expensive robot
          */
-        Robot mostExpensiveRobot = getMostExpensiveRobot(robots);
+        Robot mostExpensiveRobot = RobotCalculations.getMostExpensiveRobot(robots);
         System.out.println("The most expensive robot costs " + mostExpensiveRobot.getPrice());
         mostExpensiveRobot.action();
 
     }
 
-    private static Robot getMostExpensiveRobot(Robot[] robots) {
-        int maxRobotPrice = 0;
-        Robot mostExpensiveRobot = robots[maxRobotPrice];
-        for (Robot robot : robots) {
-            if (robot.getPrice() >= maxRobotPrice) {
-                maxRobotPrice = robot.getPrice();
-            }
-        }
-        return mostExpensiveRobot;
-    }
 }

@@ -1,6 +1,6 @@
 package com.home.robot.hands;
 
-public class ToshibaHand extends Hand{
+public class ToshibaHand extends Hand {
 
     public ToshibaHand(int price) {
         super(price);

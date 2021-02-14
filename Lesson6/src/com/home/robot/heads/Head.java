@@ -1,6 +1,6 @@
 package com.home.robot.heads;
 
-public abstract class Head implements IHead{
+public abstract class Head implements IHead {
     private final int price;
 
     public Head(int price) {

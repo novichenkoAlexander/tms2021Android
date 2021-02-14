@@ -1,6 +1,6 @@
 package com.home.robot.legs;
 
-public class SonyLeg extends Leg{
+public class SonyLeg extends Leg {
 
     public SonyLeg(int price) {
         super(price);

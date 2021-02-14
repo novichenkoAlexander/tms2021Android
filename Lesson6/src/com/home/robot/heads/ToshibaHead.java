@@ -1,6 +1,6 @@
 package com.home.robot.heads;
 
-public class ToshibaHead extends Head{
+public class ToshibaHead extends Head {
     private int price;
 
     public ToshibaHead(int price) {

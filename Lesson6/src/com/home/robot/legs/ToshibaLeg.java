@@ -1,6 +1,6 @@
 package com.home.robot.legs;
 
-public class ToshibaLeg extends Leg{
+public class ToshibaLeg extends Leg {
 
     public ToshibaLeg(int price) {
         super(price);

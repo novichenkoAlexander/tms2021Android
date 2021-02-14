@@ -4,7 +4,7 @@ import com.home.robot.hands.Hand;
 import com.home.robot.heads.Head;
 import com.home.robot.legs.Leg;
 
-public class Robot implements IRobot{
+public class Robot implements IRobot {
     private Head head;
     private Hand hand;
     private Leg leg;
@@ -15,7 +15,8 @@ public class Robot implements IRobot{
         this.leg = leg;
     }
 
-    public Robot(){}
+    public Robot() {
+    }
 
     public Head getHead() {
         return head;
@@ -50,13 +51,13 @@ public class Robot implements IRobot{
 
     /**
      * Get the cost of a robot
+     *
      * @return int
      */
     @Override
     public int getPrice() {
         return head.getPrice() + hand.getPrice() + leg.getPrice();
     }
-
 
 
 }

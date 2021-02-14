@@ -1,6 +1,6 @@
 package com.home.robot.heads;
 
-public class SamsungHead extends Head{
+public class SamsungHead extends Head {
 
     public SamsungHead(int price) {
         super(price);

@@ -1,6 +1,6 @@
 package com.home.robot.hands;
 
-public abstract class Hand implements IHand{
+public abstract class Hand implements IHand {
 
     private final int price;
 

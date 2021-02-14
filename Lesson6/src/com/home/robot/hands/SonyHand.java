@@ -1,6 +1,6 @@
 package com.home.robot.hands;
 
-public class SonyHand extends Hand{
+public class SonyHand extends Hand {
 
     public SonyHand(int price) {
         super(price);
