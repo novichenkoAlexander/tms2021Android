@@ -1,31 +1,37 @@
 package com.home.model;
 
+import com.home.exceptions.InvalidInfoInputException;
+import com.home.service.Util;
+
 public class Person {
 
     private int age;
     private String name;
+    private String lastName;
     private Address address;
     private String gender;
     private int height;
 
 
-    public Person(int age, String name, Address address, String gender) {
-        this.age = age;     // this - to global variable
-        this.name = name;
+    public Person(int age, String name, String lastName, Address address, String gender) throws InvalidInfoInputException {
+        this.age = age;
+        this.name = Util.getFormattedString(name,"name");
+        this.lastName = Util.getFormattedString(lastName,"lastName");
         this.address = address;
         this.gender = gender;
     }
 
-    public Person(int age, String name, Address address, String gender, int height) {
+    public Person(int age, String name, String lastName, Address address, String gender, int height) throws InvalidInfoInputException {
         this.age = age;
-        this.name = name;
+        this.name = Util.getFormattedString(name,"name");
+        this.lastName = Util.getFormattedString(lastName,"lastName");
         this.address = address;
         this.gender = gender;
         this.height = height;
     }
 
     public void info() {
-        System.out.println("Hello, my name is " + name);
+        System.out.println("Hello, I'm " + name + lastName);
         System.out.println("I`m " + age + " years old");
         System.out.println("I`m " + gender);
         System.out.println("I`m living in " + address.toString());
@@ -58,6 +64,14 @@ public class Person {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getGender() {
