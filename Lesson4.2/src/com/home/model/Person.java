@@ -15,16 +15,16 @@ public class Person {
 
     public Person(int age, String name, String lastName, Address address, String gender) throws InvalidInfoInputException {
         this.age = age;
-        this.name = Util.getFormattedString(name,"name");
-        this.lastName = Util.getFormattedString(lastName,"lastName");
+        this.name = Util.getFormattedString(name, "name");
+        this.lastName = Util.getFormattedString(lastName, "lastName");
         this.address = address;
         this.gender = gender;
     }
 
     public Person(int age, String name, String lastName, Address address, String gender, int height) throws InvalidInfoInputException {
         this.age = age;
-        this.name = Util.getFormattedString(name,"name");
-        this.lastName = Util.getFormattedString(lastName,"lastName");
+        this.name = Util.getFormattedString(name, "name");
+        this.lastName = Util.getFormattedString(lastName, "lastName");
         this.address = address;
         this.gender = gender;
         this.height = height;

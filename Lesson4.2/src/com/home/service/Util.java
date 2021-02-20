@@ -42,6 +42,13 @@ public class Util {
         return new Person(age, name, lastName, new Address(country, city), gender, height);
     }
 
+    /**
+     * This method return string in formatted view.
+     * @param info - String name or latsName or smth else
+     * @param flag - String parameter to define input info
+     * @return formatted string
+     * @throws InvalidInfoInputException
+     */
     public static String getFormattedString(String info, String flag) throws InvalidInfoInputException {
         String string = info.trim();
         if (!string.equals("") && !string.contains(" ")) {
@@ -126,16 +133,19 @@ public class Util {
         return people;
     }
 
-    /*
-     * method to create military units
+    /**
+     * This method returns the list of MilitaryUnits created from console
      */
     public static List<MilitaryUnit> createMilitaryUnit() {
         System.out.println("Input number of military units: ");
         int numberOfUnits = readInt();
         List<MilitaryUnit> units = new LinkedList<>();
         for (int i = 0; i < numberOfUnits; i++) {
+            System.out.println("Input military unit id: ");
+            int unitId = readInt();
             System.out.println("Input max number of recruits in this unit: ");
-            units.add(new MilitaryUnit(Util.readInt()));
+            int unitCapacity = readInt();
+            units.add(new MilitaryUnit(unitCapacity, unitId));
         }
         return units;
     }

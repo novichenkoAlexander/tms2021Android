@@ -28,7 +28,7 @@ public class MilitaryOffice {
         return filterPeopleBySuitability(registry.getListOfPeople(address));
     }
 
-    public void distributeRecruits(String country)  {
+    public void distributeRecruits(String country) {
         List<Person> listOfMen = filterPeopleBySuitability(registry.getListOfPeople(country));
         int unitNumber = 0;
         for (Person recruit : listOfMen) {
@@ -85,9 +85,10 @@ public class MilitaryOffice {
         System.out.println("");
     }
 
-    public void printRecruits(){
-        for (MilitaryUnit unit : militaryUnits){
+    public void printRecruits() {
+        for (MilitaryUnit unit : militaryUnits) {
             unit.printRecruitsInfo();
+            System.out.println("\n");
         }
     }
 
