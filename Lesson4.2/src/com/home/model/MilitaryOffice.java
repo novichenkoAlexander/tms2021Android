@@ -8,17 +8,17 @@ import java.util.List;
 
 public class MilitaryOffice {
     private final PersonsRegistry registry;
-    private final List<MilitaryUnit> militaryUnit;
+    private final List<MilitaryUnit> militaryUnits;
 
 
-    public MilitaryOffice(PersonsRegistry registry, List<MilitaryUnit> militaryUnit) {
+    public MilitaryOffice(PersonsRegistry registry, List<MilitaryUnit> militaryUnits) {
         this.registry = registry;
-        this.militaryUnit = militaryUnit;
+        this.militaryUnits = militaryUnits;
     }
 
     public int getNumberOfRequiredRecruits() {
         int requiredNumberOfRecruits = 0;
-        for (MilitaryUnit unit : militaryUnit) {
+        for (MilitaryUnit unit : militaryUnits) {
             requiredNumberOfRecruits += unit.getNumberOfFreePlaces();
         }
         return requiredNumberOfRecruits;
@@ -28,21 +28,22 @@ public class MilitaryOffice {
         return filterPeopleBySuitability(registry.getListOfPeople(address));
     }
 
-    public void distributeRecruits(String country)  {
+    public void distributeRecruits(String country) {
         List<Person> listOfMen = filterPeopleBySuitability(registry.getListOfPeople(country));
+        int unitNumber = 0;
         for (Person recruit : listOfMen) {
             int freePlaces = 0;
-            int unitNumber = 0;
-            for (int i = unitNumber; i < militaryUnit.size(); i++) {        // distribution in units one by one
+            //int unitNumber = 0;
+            for (int i = unitNumber; i < militaryUnits.size(); i++) {        // distribution in units one by one
                 try {
-                    militaryUnit.get(i).addNewRecruit(recruit);
+                    militaryUnits.get(i).addNewRecruit(recruit);
                     break;
                 } catch (MilitaryUnitIsFullException e) {
                     e.printStackTrace();
                     unitNumber++;
                 }
             }
-            for (MilitaryUnit unit : militaryUnit) {
+            for (MilitaryUnit unit : militaryUnits) {
                 freePlaces += unit.getNumberOfFreePlaces();
             }
             if (freePlaces == 0) {
@@ -82,6 +83,13 @@ public class MilitaryOffice {
         }
         System.out.println("\b");
         System.out.println("");
+    }
+
+    public void printRecruits() {
+        for (MilitaryUnit unit : militaryUnits) {
+            unit.printRecruitsInfo();
+            System.out.println("\n");
+        }
     }
 
 }

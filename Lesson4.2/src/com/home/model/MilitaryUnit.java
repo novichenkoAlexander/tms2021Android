@@ -1,6 +1,7 @@
 package com.home.model;
 
 import com.home.exceptions.MilitaryUnitIsFullException;
+import com.home.service.SortByLastName;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -10,33 +11,36 @@ public class MilitaryUnit {
     private final int maxNumberOfRecruits;
     private int currentNumberOfRecruits;
     private final List<Person> recruitList;
+    private final int unitId;
 
-    public MilitaryUnit(int maxNumberOfRecruits) {
+    public MilitaryUnit(int maxNumberOfRecruits, int unitId) {
         this.maxNumberOfRecruits = maxNumberOfRecruits;
+        this.unitId = unitId;
         recruitList = new LinkedList<>();
     }
 
     public void addNewRecruit(Person person) throws MilitaryUnitIsFullException {
         if (currentNumberOfRecruits < maxNumberOfRecruits) {
-            if (MilitaryOffice.isPersonSuitable(person) && isSimilarRecruitExists(person)) {
+            if (MilitaryOffice.isPersonSuitable(person) && !isSimilarRecruitExists(person)) {
                 recruitList.add(person);
                 currentNumberOfRecruits = recruitList.size();
-                System.out.println(person.getName() + " has been added to Military Unit!");
+                System.out.println(person.getName() + " " + person.getLastName() + " has been added to military unit № " +
+                        unitId + "!");
             }
         } else {
-            throw new MilitaryUnitIsFullException("Military unit is full!");
+            throw new MilitaryUnitIsFullException("Military unit № " + unitId + " is full!");
         }
     }
 
     private boolean isSimilarRecruitExists(Person person) {
-        boolean check = true;
+        boolean check = false;
         if (recruitList.contains(person)) {
-            check = false;
+            check = true;
         } else {
             for (Person recruit : recruitList) {
                 if (recruit.getName().equals(person.getName()) && recruit.getHeight() == person.getHeight()
                         && recruit.getAge() == person.getAge()) {
-                    check = false;
+                    check = true;
                     break;
                 }
             }
@@ -47,8 +51,8 @@ public class MilitaryUnit {
     }
 
     private void printState(Person person, boolean check) {
-        if (!check)
-            System.out.println("Recruit " + person.getName() + " is already serving in this Unit!");
+        if (check)
+            System.out.println("Recruit " + person.getName() + " " + person.getLastName() + " is already serving in this Unit!");
     }
 
     public int getNumberOfFreePlaces() {
@@ -59,11 +63,16 @@ public class MilitaryUnit {
         return recruitList;
     }
 
-    public void printAllRecruits() {
+    public void printRecruitsInfo() {
+        recruitList.sort(new SortByLastName());
+        System.out.println("Military unit № " + unitId + ":");
+        int count = 1;
         for (Person recruit : recruitList) {
-            System.out.println(recruit.getName() + ", "
+            System.out.println(count + "." + recruit.getName() + " "
+                    + recruit.getLastName() + ", "
                     + recruit.getAge() + " years, "
                     + recruit.getHeight() + " cm");
+            count++;
         }
     }
 
@@ -73,5 +82,9 @@ public class MilitaryUnit {
 
     public int getCurrentNumberOfRecruits() {
         return currentNumberOfRecruits;
+    }
+
+    public int getUnitId() {
+        return unitId;
     }
 }

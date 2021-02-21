@@ -9,7 +9,7 @@ public class MilitaryUnitIsFullException extends Exception {
     public MilitaryUnitIsFullException() {
     }
 
-    public MilitaryUnitIsFullException(String message){
+    public MilitaryUnitIsFullException(String message) {
         super(message);
     }
 }
