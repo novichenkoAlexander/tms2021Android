@@ -44,6 +44,7 @@ public class Util {
 
     /**
      * This method return string in formatted view.
+     *
      * @param info - String name or latsName or smth else
      * @param flag - String parameter to define input info
      * @return formatted string
@@ -51,7 +52,7 @@ public class Util {
      */
     public static String getFormattedString(String info, String flag) throws InvalidInfoInputException {
         String string = info.trim();
-        if (!string.equals("") && !string.contains(" ")) {
+        if (!string.isEmpty() && !string.contains(" ")) {
             string = string.substring(0, 1).toUpperCase() + string.substring(1).toLowerCase();
         } else {
             throw new InvalidInfoInputException("Invalid input " + flag + "!");

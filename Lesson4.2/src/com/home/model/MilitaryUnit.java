@@ -28,7 +28,7 @@ public class MilitaryUnit {
                         unitId + "!");
             }
         } else {
-            throw new MilitaryUnitIsFullException("Military unit is full!");
+            throw new MilitaryUnitIsFullException("Military unit № " + unitId + " is full!");
         }
     }
 
@@ -66,11 +66,13 @@ public class MilitaryUnit {
     public void printRecruitsInfo() {
         recruitList.sort(new SortByLastName());
         System.out.println("Military unit № " + unitId + ":");
+        int count = 1;
         for (Person recruit : recruitList) {
-            System.out.println(recruit.getName() + " "
+            System.out.println(count + "." + recruit.getName() + " "
                     + recruit.getLastName() + ", "
                     + recruit.getAge() + " years, "
                     + recruit.getHeight() + " cm");
+            count++;
         }
     }
 
