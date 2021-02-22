@@ -64,15 +64,19 @@ public class MilitaryUnit {
     }
 
     public void printRecruitsInfo() {
-        recruitList.sort(new SortByLastName());
-        System.out.println("Military unit № " + unitId + ":");
-        int count = 1;
-        for (Person recruit : recruitList) {
-            System.out.println(count + "." + recruit.getName() + " "
-                    + recruit.getLastName() + ", "
-                    + recruit.getAge() + " years, "
-                    + recruit.getHeight() + " cm");
-            count++;
+        if (currentNumberOfRecruits == 0) {
+            System.out.println("Unit № " + unitId + " is empty");
+        } else {
+            recruitList.sort(new SortByLastName());
+            System.out.println("Military unit № " + unitId + ":");
+            int count = 1;
+            for (Person recruit : recruitList) {
+                System.out.println(count + "." + recruit.getName() + " "
+                        + recruit.getLastName() + ", "
+                        + recruit.getAge() + " years, "
+                        + recruit.getHeight() + " cm");
+                count++;
+            }
         }
     }
 
