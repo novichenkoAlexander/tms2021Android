@@ -77,9 +77,18 @@ public class Util {
         return intParam;
     }
 
-    private static String readString(String s) throws InvalidInfoInputException {
+    private static String readString(String s) {
         scanner = new Scanner(System.in);
-        return getFormattedString(scanner.nextLine(), s);
+        String result = "";
+        while (true) {
+            try {
+                result = getFormattedString(scanner.nextLine(), s);
+            } catch (InvalidInfoInputException e) {
+                e.printStackTrace();
+                continue;
+            }
+            return result;
+        }
     }
 
     private static String readCountry() {

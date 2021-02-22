@@ -1,13 +1,9 @@
 package com.home.service;
 
 import com.home.exceptions.InvalidInfoInputException;
-import com.home.model.Address;
-import com.home.model.MilitaryOffice;
-import com.home.model.MilitaryUnit;
-import com.home.model.Person;
+import com.home.model.*;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 
 public class Main {
@@ -18,14 +14,7 @@ public class Main {
 
     public static void main(String[] args) throws InvalidInfoInputException {
 
-        /**
-         * Creating people from console
-         */
-        /*
-        Address countryAddress = new Address(country);
-        Address allAddress = new Address(country, city);
 
-*/
         /**
          * Hardcode creating people
          */
