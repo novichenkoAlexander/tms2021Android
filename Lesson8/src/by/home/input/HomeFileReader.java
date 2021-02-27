@@ -1,9 +1,6 @@
 package by.home.input;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class HomeFileReader implements Reader {
     private final String inputFilePath;
@@ -27,5 +24,18 @@ public class HomeFileReader implements Reader {
             return result;
         }
 
+    }
+
+    @Override
+    public String readLine() throws IOException {
+        try (BufferedReader buffReader = new BufferedReader(reader)) {
+            StringBuilder result = null;
+            int c;
+            builder = new StringBuilder();
+            while ((c = buffReader.read()) != -1) {
+                result = builder.append((char) c);
+            }
+            return result.toString();
+        }
     }
 }

@@ -2,7 +2,7 @@ package by.home.service;
 
 public class TextFormatter {
 
-    private static final String WORDS_SPLIT_REGEX = "[,;:\s]+";
+    private static final String WORDS_SPLIT_REGEX = "(?<=[,;:\s])+";
 
     public static int countWordsInLine(String string) {
         return string.trim().split(WORDS_SPLIT_REGEX).length;

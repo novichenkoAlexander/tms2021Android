@@ -11,6 +11,6 @@ public class SentenceSeparator {
     }
 
     public List<String> divideTextBySentences() {
-        return Arrays.asList(text.split("[.!?]+"));
+        return Arrays.asList(text.split("(?<=[.!?])+"));
     }
 }
