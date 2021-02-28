@@ -44,28 +44,19 @@ public class Store {
     }
 
     private void printEditItemState(EditState param, boolean state, String itemName) {
-        switch (param) {
-            case ADD:
-                if (state) {
-                    System.out.printf("Item '%s' has been added to store\n", itemName);
-                } else {
-                    System.out.println("Item with this id is already exists");
-                }
-                break;
-            case DELETE:
-                if (state) {
-                    System.out.printf("Item with id = %s has been deleted\n", itemName);
-                } else {
-                    System.out.println("No item with this id");
-                }
-                break;
-            case EDIT:
-                if (state) {
-                    System.out.printf("Item %s has been edited\n", itemName);
-                } else {
-                    System.out.println("No item with this id");
-                }
+        if (state) {
+            switch (param) {
+                case ADD -> System.out.printf("Item '%s' has been added to store\n", itemName);
+                case EDIT -> System.out.printf("Item %s has been edited\n", itemName);
+                case DELETE -> System.out.printf("Item with id = %s has been deleted\n", itemName);
+            }
+        } else {
+            switch (param) {
+                case ADD -> System.out.println("Item with this id is already exists");
+                case EDIT, DELETE -> System.out.println("No item with this id");
+            }
         }
+
     }
 
     public void deleteItem(int id) {
