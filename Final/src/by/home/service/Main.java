@@ -32,10 +32,10 @@ public class Main {
         // deleting item
         groceryStore.deleteItem(2);
 
-        //print itemList by adding order
+        //print itemList in the order of addition
         Util.printList(groceryStore.getItemList());
 
-        //editing item
+        //editing item and print list
         groceryStore.editItem(newKivi);
         Util.printList(groceryStore.getItemList());
 
