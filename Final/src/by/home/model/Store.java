@@ -1,5 +1,6 @@
 package by.home.model;
 
+import by.home.exceptions.ItemIdMissMatchException;
 import by.home.service.EditState;
 import by.home.service.Sort;
 
@@ -23,7 +24,7 @@ public class Store {
         return sortedItems;
     }
 
-    public void addItem(Item item) {
+    public void addItem(Item item) throws ItemIdMissMatchException {
         boolean added = false;
         if (itemList.isEmpty()) {
             itemList.add(0, item);
@@ -33,17 +34,14 @@ public class Store {
                 if (item.getId() != element.getId()) {
                     itemList.add(0, item);
                     added = true;
-                    break;
-                } else {
-                    added = false;
-                    //TODO: throw new Exception - "item with this id is already exists"!
                 }
+                break;
             }
         }
         printEditItemState(EditState.ADD, added, item.getName());
     }
 
-    private void printEditItemState(EditState param, boolean state, String itemName) {
+    private void printEditItemState(EditState param, boolean state, String itemName) throws ItemIdMissMatchException {
         if (state) {
             switch (param) {
                 case ADD -> System.out.printf("Item '%s' has been added to store\n", itemName);
@@ -52,29 +50,26 @@ public class Store {
             }
         } else {
             switch (param) {
-                case ADD -> System.out.println("Item with this id is already exists");
-                case EDIT, DELETE -> System.out.println("No item with this id");
+                case ADD -> throw new ItemIdMissMatchException("Item with this id is already exists");
+                case EDIT, DELETE -> throw new ItemIdMissMatchException("No item with this id");
             }
         }
 
     }
 
-    public void deleteItem(int id) {
+    public void deleteItem(int id) throws ItemIdMissMatchException {
         boolean deleted = false;
         for (Item item : itemList) {
             if (item.getId() == id) {
                 itemList.remove(item);
                 deleted = true;
                 break;
-            } else {
-                deleted = false;
-                //TODO: throw new Exception - "No item with this id"
             }
         }
         printEditItemState(EditState.DELETE, deleted, String.valueOf(id));
     }
 
-    public void editItem(Item item) {
+    public void editItem(Item item) throws ItemIdMissMatchException {
         boolean edited = false;
         for (Item listItem : itemList) {
             if (listItem.getId() == item.getId()) {
@@ -83,9 +78,6 @@ public class Store {
                 listItem.setPrice(item.getPrice());
                 edited = true;
                 break;
-            } else {
-                edited = false;
-                //TODO: throw new Exception - "No item with this id"
             }
         }
         printEditItemState(EditState.EDIT, edited, item.getName());

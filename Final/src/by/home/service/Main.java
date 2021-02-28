@@ -1,12 +1,13 @@
 package by.home.service;
 
+import by.home.exceptions.ItemIdMissMatchException;
 import by.home.model.Item;
 import by.home.model.Store;
 
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ItemIdMissMatchException {
         Item milk = new Item(1, "Savushkin", "dairy", 5);
         Item bred = new Item(2, "Mag", "grocery", 4);
         Item juice = new Item(3, "Rich", "drinks", 8);
@@ -37,5 +38,6 @@ public class Main {
         //editing item
         groceryStore.editItem(newKivi);
         Util.printList(groceryStore.getItemList());
+
     }
 }
