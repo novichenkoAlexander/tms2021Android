@@ -21,7 +21,7 @@ public class HomeFileWriter implements Writer {
     public void append(String text) throws IOException {
         try (FileWriter writer = new FileWriter(filePath, true)) {
             writer.append(text.trim());
-            writer.append(".\n");
+            writer.append("\n");
         }
     }
 }

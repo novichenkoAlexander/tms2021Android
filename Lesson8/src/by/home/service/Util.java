@@ -1,5 +1,6 @@
 package by.home.service;
 
+import by.home.input.HomeFileReader;
 import by.home.output.HomeFileWriter;
 
 import java.io.*;
@@ -42,6 +43,19 @@ public class Util {
             }
         }
         System.out.println("File has been updated!");
+    }
+
+    public static void writePalindromesInFile(String readFileDir, String fileToWriteDir) throws IOException {
+        HomeFileReader reader = new HomeFileReader(readFileDir);
+        String fileInfo = reader.readLine();
+        String[] mass = fileInfo.split("[\\n\\r]+");
+        HomeFileWriter homeFileWriter = new HomeFileWriter(fileToWriteDir);
+        for (String word : mass) {
+            if (TextFormatter.isPalindromeInSentence(word)) {
+                homeFileWriter.append(word);
+            }
+        }
+        System.out.println("File was created!");
     }
 
 }
