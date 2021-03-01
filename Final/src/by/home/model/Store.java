@@ -1,8 +1,9 @@
 package by.home.model;
 
-import by.home.exceptions.ItemIdMissMatchException;
-import by.home.service.EditState;
-import by.home.service.Sort;
+import by.home.exceptions.EqualsItemIdException;
+import by.home.exceptions.ItemNotFoundException;
+import by.home.service.OperationWithItem;
+import by.home.service.ItemComparator;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -20,11 +21,11 @@ public class Store {
 
     public List<Item> getItemListByPrice() {
         LinkedList<Item> sortedItems = (LinkedList) itemList.clone();
-        sortedItems.sort(new Sort());
+        sortedItems.sort(new ItemComparator());
         return sortedItems;
     }
 
-    public void addItem(Item item) throws ItemIdMissMatchException {
+    public void addItem(Item item) throws ItemNotFoundException, EqualsItemIdException {
         boolean added = false;
         if (!itemList.contains(item)) {
             itemList.add(0, item);
@@ -64,37 +65,10 @@ public class Store {
             }
         } else {
             switch (param) {
-                case ADD -> throw new ItemIdMissMatchException("Item with this id is already exists");
-                case EDIT, DELETE -> throw new ItemIdMissMatchException("No item with this id");
+                case ADD -> throw new EqualsItemIdException("Item with this id is already exists");
+                case EDIT, DELETE -> throw new ItemNotFoundException("No item with this id");
             }
         }
 
     }
-
-    public void deleteItem(int id) throws ItemIdMissMatchException {
-        boolean deleted = false;
-        for (Item item : itemList) {
-            if (item.getId() == id) {
-                itemList.remove(item);
-                deleted = true;
-                break;
-            }
-        }
-        printEditItemState(EditState.DELETE, deleted, String.valueOf(id));
-    }
-
-    public void editItem(Item item) throws ItemIdMissMatchException {
-        boolean edited = false;
-        for (Item listItem : itemList) {
-            if (listItem.getId() == item.getId()) {
-                listItem.setName(item.getName());
-                listItem.setType(item.getType());
-                listItem.setPrice(item.getPrice());
-                edited = true;
-                break;
-            }
-        }
-        printEditItemState(EditState.EDIT, edited, item.getName());
-    }
-
 }
