@@ -1,6 +1,6 @@
 package by.home.service;
 
-public enum EditState {
+public enum OperationWithItem {
     ADD,
     DELETE,
     EDIT

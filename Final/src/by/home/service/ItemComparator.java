@@ -4,7 +4,7 @@ import by.home.model.Item;
 
 import java.util.Comparator;
 
-public class Sort implements Comparator<Item> {
+public class ItemComparator implements Comparator<Item> {
     /**
      * @param o1 the first object to be compared.
      * @param o2 the second object to be compared.

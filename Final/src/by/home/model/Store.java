@@ -26,22 +26,36 @@ public class Store {
 
     public void addItem(Item item) throws ItemIdMissMatchException {
         boolean added = false;
-        if (itemList.isEmpty()) {
+        if (!itemList.contains(item)) {
             itemList.add(0, item);
             added = true;
-        } else {
-            for (Item element : itemList) {
-                if (item.getId() != element.getId()) {
-                    itemList.add(0, item);
-                    added = true;
-                }
+        }
+        printItemState(OperationWithItem.ADD, added, item.getName());
+    }
+
+    public void deleteItem(int id) throws ItemNotFoundException, EqualsItemIdException {
+        boolean deleted = false;
+        for (Item item : itemList) {
+            if (item.getId() == id) {
+                itemList.remove(item);
+                deleted = true;
                 break;
             }
         }
-        printEditItemState(EditState.ADD, added, item.getName());
+        printItemState(OperationWithItem.DELETE, deleted, String.valueOf(id));
     }
 
-    private void printEditItemState(EditState param, boolean state, String itemName) throws ItemIdMissMatchException {
+    public void editItem(Item item) throws EqualsItemIdException, ItemNotFoundException {
+        boolean edited = false;
+        if (itemList.contains(item)) {
+            itemList.remove(item);
+            itemList.add(item);
+            edited = true;
+        }
+        printItemState(OperationWithItem.EDIT, edited, item.getName());
+    }
+
+    private void printItemState(OperationWithItem param, boolean state, String itemName) throws ItemNotFoundException, EqualsItemIdException {
         if (state) {
             switch (param) {
                 case ADD -> System.out.printf("Item '%s' has been added to store\n", itemName);
