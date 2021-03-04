@@ -2,7 +2,7 @@ package by.home.model;
 
 import by.home.exceptions.EqualsItemIdException;
 import by.home.exceptions.ItemNotFoundException;
-import by.home.service.OperationWithItem;
+import by.home.model.enums.OperationWithItem;
 import by.home.service.ItemComparator;
 
 import java.util.LinkedList;
@@ -31,7 +31,7 @@ public class Store {
             itemList.add(0, item);
             added = true;
         }
-        printItemState(OperationWithItem.ADD, added, item.getName());
+        printItemState(OperationWithItem.ADD_ITEM, added, item.getName());
     }
 
     public void deleteItem(int id) throws ItemNotFoundException, EqualsItemIdException {
@@ -43,7 +43,7 @@ public class Store {
                 break;
             }
         }
-        printItemState(OperationWithItem.DELETE, deleted, String.valueOf(id));
+        printItemState(OperationWithItem.DELETE_ITEM, deleted, String.valueOf(id));
     }
 
     public void editItem(Item item) throws EqualsItemIdException, ItemNotFoundException {
@@ -53,20 +53,20 @@ public class Store {
             itemList.add(item);
             edited = true;
         }
-        printItemState(OperationWithItem.EDIT, edited, item.getName());
+        printItemState(OperationWithItem.EDIT_ITEM, edited, item.getName());
     }
 
     private void printItemState(OperationWithItem param, boolean state, String itemName) throws ItemNotFoundException, EqualsItemIdException {
         if (state) {
             switch (param) {
-                case ADD -> System.out.printf("Item '%s' has been added to store\n", itemName);
-                case EDIT -> System.out.printf("Item %s has been edited\n", itemName);
-                case DELETE -> System.out.printf("Item with id = %s has been deleted\n", itemName);
+                case ADD_ITEM -> System.out.printf("Item '%s' has been added to store\n", itemName);
+                case EDIT_ITEM -> System.out.printf("Item %s has been edited\n", itemName);
+                case DELETE_ITEM -> System.out.printf("Item with id = %s has been deleted\n", itemName);
             }
         } else {
             switch (param) {
-                case ADD -> throw new EqualsItemIdException("Item with this id is already exists");
-                case EDIT, DELETE -> throw new ItemNotFoundException("No item with this id");
+                case ADD_ITEM -> throw new EqualsItemIdException("Item with this id is already exists");
+                case EDIT_ITEM, DELETE_ITEM -> throw new ItemNotFoundException("No item with this id");
             }
         }
 
