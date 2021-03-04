@@ -30,9 +30,15 @@ public class Customer implements Runnable {
         CashDesk shortestQueueCashDesk = Util.getCashDeskWithMinQueue(cashDesks);
         System.out.printf("Customer " + name + " selected CashDesk #%d\n", shortestQueueCashDesk.getId());
         shortestQueueCashDesk.incrementQueue();
-
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         shortestQueueCashDesk.serveTheCustomer();
         System.out.println("Customer " + name + " bought:" + products);
+        System.out.println("Office #" + shortestQueueCashDesk.getId() + " has " + shortestQueueCashDesk.getQueueLength() +
+                " clients in queue");
     }
 }
 

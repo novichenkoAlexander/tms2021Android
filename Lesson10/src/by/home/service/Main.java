@@ -17,8 +17,13 @@ public class Main {
         cashDesks.add(cashDesk2);
         cashDesks.add(cashDesk3);
 
-        for (int i = 1; i <= 4; i++) {
+        for (int i = 1; i <= 10; i++) {
             new Thread(new Customer(String.valueOf(i), cashDesks)).start();
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
     }

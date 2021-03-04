@@ -22,6 +22,7 @@ public class CashDesk {
     }
 
     synchronized void serveTheCustomer() {
+        System.out.printf("Office #%d has %d clients\n", id, queueLength);
         while (queueLength < 1) {
             try {
                 wait();
