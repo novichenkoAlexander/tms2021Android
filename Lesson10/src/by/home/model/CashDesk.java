@@ -3,7 +3,6 @@ package by.home.model;
 public class CashDesk {
     private int id;
     private int queueLength = 0;
-    private boolean isFree = true;
 
     public CashDesk(int id) {
         this.id = id;
@@ -22,7 +21,7 @@ public class CashDesk {
     }
 
     synchronized void serveTheCustomer() {
-        System.out.printf("Office #%d has %d clients\n", id, queueLength);
+        System.out.printf("CashDesk #%d has %d clients\n", id, queueLength);
         while (queueLength < 1) {
             try {
                 wait();

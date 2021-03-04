@@ -4,7 +4,7 @@ import by.home.model.CashDesk;
 
 import java.util.List;
 
-public class Util {
+public class CashDeskUtil {
 
     public static CashDesk getCashDeskWithMinQueue(List<CashDesk> cashDesks) {
         cashDesks.sort(new QueueComparator());

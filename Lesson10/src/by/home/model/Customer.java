@@ -1,7 +1,7 @@
 package by.home.model;
 
 import by.home.service.ProductGenerator;
-import by.home.service.Util;
+import by.home.service.CashDeskUtil;
 
 import java.util.HashSet;
 import java.util.List;
@@ -27,7 +27,7 @@ public class Customer implements Runnable {
         System.out.println("Customer " + name + " is choosing the cashDesk...");
 
         // Choosing cashDesk whit minimum queue
-        CashDesk shortestQueueCashDesk = Util.getCashDeskWithMinQueue(cashDesks);
+        CashDesk shortestQueueCashDesk = CashDeskUtil.getCashDeskWithMinQueue(cashDesks);
         System.out.printf("Customer " + name + " selected CashDesk #%d\n", shortestQueueCashDesk.getId());
         shortestQueueCashDesk.incrementQueue();
         try {
@@ -37,7 +37,7 @@ public class Customer implements Runnable {
         }
         shortestQueueCashDesk.serveTheCustomer();
         System.out.println("Customer " + name + " bought:" + products);
-        System.out.println("Office #" + shortestQueueCashDesk.getId() + " has " + shortestQueueCashDesk.getQueueLength() +
+        System.out.println("CashDesk #" + shortestQueueCashDesk.getId() + " has " + shortestQueueCashDesk.getQueueLength() +
                 " clients in queue");
     }
 }
