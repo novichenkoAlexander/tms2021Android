@@ -10,11 +10,14 @@ import by.home.service.ConsoleReader;
 import by.home.service.ItemUtil;
 
 import java.util.EnumSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Menu {
     private final Store store;
     private final ConsoleReader reader;
-    private MenuElement menuElement;
+    private Map<Item, Integer> itemsWithQuantity;
 
     public Menu(Store store) {
         this.store = store;
@@ -32,6 +35,21 @@ public class Menu {
     }
 
     /**
+     * TODO: create method addItem in Menu.java and place method convertItemList() in it;
+     * TODO: in method deleteItem() place  convertItemList() too;
+     */
+
+
+
+    public Map<Item, Integer> convertItemList(List<Item> list) {
+        itemsWithQuantity = new LinkedHashMap<>();
+        for (Item item : list) {
+            itemsWithQuantity.put(item, 1);
+        }
+        return itemsWithQuantity;
+    }
+
+    /**
      * @return isExit = true when user pick "Exit"
      * @throws IncorrectInputException
      * @throws StoreIsEmptyException
@@ -43,12 +61,13 @@ public class Menu {
         int menuItemNumber = reader.readIntNumber();
         if (menuItemNumber == 0) {                                         // 0 - Exit
             isExit = true;
-        } else if (menuItemNumber >= 0 && menuItemNumber < 5) {
+        } else if (menuItemNumber >= 0 && menuItemNumber < 6) {
             switch (getMenuElementByNumber(menuItemNumber)) {
                 case PRINT_ALL_ITEMS -> printAllItems();                        // 1
                 case ADD_ITEM -> store.addItem(ItemUtil.createItem());          // 2
                 case DELETE_ITEM -> deleteItemById();                           // 3
                 case EDIT_ITEM -> editItemById();                               // 4
+                case ADD_QUANTITY -> addQuantity();                             // 5
                 case EXIT -> System.out.println("Exit");                        // 0
             }
         } else {
@@ -76,8 +95,8 @@ public class Menu {
                         System.out.println("1 - New first\n" +
                                 "2 - Old first");
                         switch (getItemSortParam(reader.readIntNumber(), order)) {
-                            case BY_ORDER_FIRST_NEW -> ItemUtil.printList(store.getItemsFirstNew());
-                            case BY_ORDER_FIRST_OLD -> ItemUtil.printList(store.getItemsFirstOld());
+                            case BY_ORDER_FIRST_NEW -> ItemUtil.printMap(convertItemList(store.getItems()));
+                            case BY_ORDER_FIRST_OLD -> ItemUtil.printMap(convertItemList(store.getItemsFirstOld()));
                         }
                     }
                     case 2 -> {
@@ -111,6 +130,24 @@ public class Menu {
         }
     }
 
+    private void addQuantity() throws ItemNotFoundException, IncorrectInputException, StoreIsEmptyException {
+        if (!store.checkForNoProductsAvailable()) {
+            convertItemList(store.getItems());
+            System.out.println("Input item id to set quantity:");
+            int itemId = reader.readIntNumber();
+            System.out.println("Input quantity:");
+            int quantity = reader.readIntNumber();
+            for (Item item : itemsWithQuantity.keySet()) {
+                if (itemId == item.getId()) {
+                    itemsWithQuantity.put(item, quantity);
+                    break;
+                } else {
+                    throw new ItemNotFoundException("No item with such id!");
+                }
+            }
+        }
+    }
+
     private SortPrintedItems getItemSortParam(int number, EnumSet<SortPrintedItems> param) throws IncorrectInputException {
         if (number > 0 && number < 3) {
             for (SortPrintedItems m : param) {
@@ -139,6 +176,7 @@ public class Menu {
                 "2 - Add new item;\n" +
                 "3 - Delete item;\n" +
                 "4 - Edit item;\n" +
+                "5 - Add quantity;\n" +
                 "0 - exit");
     }
 

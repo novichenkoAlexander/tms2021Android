@@ -6,6 +6,7 @@ public enum MenuElement {
     ADD_ITEM(2),
     DELETE_ITEM(3),
     EDIT_ITEM(4),
+    ADD_QUANTITY(5),
     EXIT(0);
 
     private final int number;

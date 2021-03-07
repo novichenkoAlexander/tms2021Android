@@ -4,6 +4,7 @@ import by.home.exceptions.IncorrectInputException;
 import by.home.model.Item;
 
 import java.util.List;
+import java.util.Map;
 
 public class ItemUtil {
 
@@ -11,6 +12,12 @@ public class ItemUtil {
     public static void printList(List<Item> itemList) {
         for (Item item : itemList) {
             System.out.println(item.toString());
+        }
+    }
+
+    public static void printMap(Map<Item, Integer> map) {
+        for (Item item : map.keySet()) {
+            System.out.println(item + " qty:" + map.get(item));
         }
     }
 

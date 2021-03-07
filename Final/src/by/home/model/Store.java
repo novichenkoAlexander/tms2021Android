@@ -15,7 +15,7 @@ public class Store {
         itemList = new LinkedList<>();
     }
 
-    public List<Item> getItemsFirstNew() {
+    public List<Item> getItems() {
         return itemList;
     }
 
