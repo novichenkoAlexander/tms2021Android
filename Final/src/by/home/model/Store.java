@@ -6,9 +6,7 @@ import by.home.exceptions.StoreIsEmptyException;
 import by.home.model.enums.OperationWithItem;
 import by.home.service.ItemComparator;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Store {
     private final LinkedList<Item> itemList;
@@ -17,38 +15,27 @@ public class Store {
         itemList = new LinkedList<>();
     }
 
-    public List<Item> getItemsFirstNew() throws StoreIsEmptyException {
-        if (!checkIsEmpty()) {
-            return itemList;
-        }
-        return null;
+    public List<Item> getItemsFirstNew() {
+        return itemList;
     }
 
-    public List<Item> getItemsFirstOld() throws StoreIsEmptyException {
-        if (!checkIsEmpty()) {
-            List<Item> sortedList = new LinkedList<>(itemList);
-            sortedList.sort(Collections.reverseOrder());
-            return sortedList;
-        }
-        return null;
+    public List<Item> getItemsFirstOld() {
+        List<Item> sortedList = new LinkedList<>(itemList);
+        Collections.reverse(sortedList);
+        return sortedList;
     }
 
-    public List<Item> getItemsByPriceDown() throws StoreIsEmptyException {
-        if (!checkIsEmpty()) {
-            LinkedList<Item> sortedItems = new LinkedList<>(itemList);
-            sortedItems.sort(new ItemComparator());
-            return sortedItems;
-        }
-        return null;
+    public List<Item> getItemsByPriceDown() {
+        LinkedList<Item> sortedItems = new LinkedList<>(itemList);
+        sortedItems.sort(new ItemComparator());
+        return sortedItems;
     }
 
-    public List<Item> getItemsByPriceUp() throws StoreIsEmptyException {
-        if (!checkIsEmpty()) {
-            LinkedList<Item> sortedItems = new LinkedList<>(itemList);
-            sortedItems.sort(Collections.reverseOrder(new ItemComparator()));
-            return sortedItems;
-        }
-        return null;
+
+    public List<Item> getItemsByPriceUp() {
+        LinkedList<Item> sortedItems = new LinkedList<>(itemList);
+        sortedItems.sort(Collections.reverseOrder(new ItemComparator()));
+        return sortedItems;
     }
 
     public void addItem(Item item) throws ItemNotFoundException, EqualsItemIdException {
@@ -79,10 +66,10 @@ public class Store {
             itemList.add(item);
             edited = true;
         }
-        printItemState(OperationWithItem.EDIT_ITEM, edited, item.getName());
+        printItemState(OperationWithItem.EDIT_ITEM, edited, String.valueOf(item.getId()));
     }
 
-    private boolean checkIsEmpty() throws StoreIsEmptyException {
+    public boolean checkForNoProductsAvailable() throws StoreIsEmptyException {
         if (!itemList.isEmpty()) {
             return false;
         } else {
@@ -94,7 +81,7 @@ public class Store {
         if (state) {
             switch (param) {
                 case ADD_ITEM -> System.out.printf("Item '%s' has been added to store\n", itemName);
-                case EDIT_ITEM -> System.out.printf("Item %s has been edited\n", itemName);
+                case EDIT_ITEM -> System.out.printf("Item with id = %s has been edited\n", itemName);
                 case DELETE_ITEM -> System.out.printf("Item with id = %s has been deleted\n", itemName);
             }
         } else {

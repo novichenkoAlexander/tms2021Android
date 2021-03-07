@@ -18,6 +18,6 @@ public class ItemComparator implements Comparator<Item> {
      */
     @Override
     public int compare(Item o1, Item o2) {
-        return o1.getPrice() - o2.getPrice();
+        return o2.getPrice() - o1.getPrice();
     }
 }

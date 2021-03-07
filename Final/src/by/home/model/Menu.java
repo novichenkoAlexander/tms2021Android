@@ -1,6 +1,8 @@
 package by.home.model;
 
+import by.home.exceptions.EqualsItemIdException;
 import by.home.exceptions.IncorrectInputException;
+import by.home.exceptions.ItemNotFoundException;
 import by.home.exceptions.StoreIsEmptyException;
 import by.home.model.enums.MenuElement;
 import by.home.model.enums.SortPrintedItems;
@@ -19,7 +21,7 @@ public class Menu {
         reader = new ConsoleReader();
     }
 
-    public boolean start() throws IncorrectInputException, StoreIsEmptyException {
+    public boolean start() throws IncorrectInputException, StoreIsEmptyException, EqualsItemIdException, ItemNotFoundException {
         boolean isExit = false;
         while (!isExit) {
             printMenuInfo();
@@ -29,18 +31,25 @@ public class Menu {
         return true;
     }
 
-    private boolean menuInit() throws IncorrectInputException, StoreIsEmptyException {
+    /**
+     * @return isExit = true when user pick "Exit"
+     * @throws IncorrectInputException
+     * @throws StoreIsEmptyException
+     * @throws EqualsItemIdException
+     * @throws ItemNotFoundException
+     */
+    private boolean menuInit() throws IncorrectInputException, StoreIsEmptyException, EqualsItemIdException, ItemNotFoundException {
         boolean isExit = false;
         int menuItemNumber = reader.readIntNumber();
-        if (menuItemNumber == 0) {      // 0 - Exit
+        if (menuItemNumber == 0) {                                         // 0 - Exit
             isExit = true;
         } else if (menuItemNumber >= 0 && menuItemNumber < 5) {
             switch (getMenuElementByNumber(menuItemNumber)) {
-                case PRINT_ALL_ITEMS -> printAllItems();            // 1
-                case ADD_ITEM -> System.out.println("Add");         // 2
-                case DELETE_ITEM -> System.out.println("Delete");   // 3
-                case EDIT_ITEM -> System.out.println("Edit");       // 4
-                case EXIT -> System.out.println("Exit");            // 0
+                case PRINT_ALL_ITEMS -> printAllItems();                        // 1
+                case ADD_ITEM -> store.addItem(ItemUtil.createItem());          // 2
+                case DELETE_ITEM -> deleteItemById();                           // 3
+                case EDIT_ITEM -> editItemById();                               // 4
+                case EXIT -> System.out.println("Exit");                        // 0
             }
         } else {
             throw new IncorrectInputException("Incorrect input number!");
@@ -48,35 +57,57 @@ public class Menu {
         return isExit;
     }
 
+    /**
+     * Prints all items in console depending on chosen parameter
+     *
+     * @throws IncorrectInputException
+     * @throws StoreIsEmptyException
+     */
     private void printAllItems() throws IncorrectInputException, StoreIsEmptyException {
-        System.out.println("1 - BY ORDER\n" +
-                "2 - BY PRICE");
-        int itemSortNumber = reader.readIntNumber();
-        EnumSet<SortPrintedItems> orderParam = SortPrintedItems.order;
-        EnumSet<SortPrintedItems> priceParam = SortPrintedItems.price;
-        if (itemSortNumber > 0 && itemSortNumber < 3) {
-            switch (itemSortNumber) {
-                case 1 -> {
-                    System.out.println("ORDER");
-                    System.out.println("1 - New first\n" +
-                            "2 - Old first");
-                    switch (getItemSortParam(reader.readIntNumber(), orderParam)) {
-                        case BY_ORDER_FIRST_NEW -> ItemUtil.printList(store.getItemsFirstNew());
-                        case BY_ORDER_FIRST_OLD -> ItemUtil.printList(store.getItemsFirstOld());
+        if (!store.checkForNoProductsAvailable()) {
+            System.out.println("1 - BY ORDER\n2 - BY PRICE");
+            int itemSortNumber = reader.readIntNumber();
+            EnumSet<SortPrintedItems> order = SortPrintedItems.order;
+            EnumSet<SortPrintedItems> price = SortPrintedItems.price;
+            if (itemSortNumber > 0 && itemSortNumber < 3) {
+                switch (itemSortNumber) {
+                    case 1 -> {
+                        System.out.println("ORDER");
+                        System.out.println("1 - New first\n" +
+                                "2 - Old first");
+                        switch (getItemSortParam(reader.readIntNumber(), order)) {
+                            case BY_ORDER_FIRST_NEW -> ItemUtil.printList(store.getItemsFirstNew());
+                            case BY_ORDER_FIRST_OLD -> ItemUtil.printList(store.getItemsFirstOld());
+                        }
+                    }
+                    case 2 -> {
+                        System.out.println("PRICE");
+                        System.out.println("1 - Cheap first\n" +
+                                "2 - Expensive first");
+                        switch (getItemSortParam(reader.readIntNumber(), price)) {
+                            case BY_PRICE_CHEAP_FIRST -> ItemUtil.printList(store.getItemsByPriceUp());
+                            case BY_PRICE_EXPENSIVE_FIRST -> ItemUtil.printList(store.getItemsByPriceDown());
+                        }
                     }
                 }
-                case 2 -> {
-                    System.out.println("PRICE");
-                    System.out.println("1 - Cheap first\n" +
-                            "2 - Expensive first");
-                    switch (getItemSortParam(reader.readIntNumber(), priceParam)) {
-                        case BY_PRICE_CHEAP_FIRST -> ItemUtil.printList(store.getItemsByPriceUp());
-                        case BY_PRICE_EXPENSIVE_FIRST -> ItemUtil.printList(store.getItemsByPriceDown());
-                    }
-                }
+            } else {
+                throw new IncorrectInputException("Incorrect input number!");
             }
         } else {
-            throw new IncorrectInputException("Incorrect input number!");
+            throw new StoreIsEmptyException("The Store is Empty! Add some products");
+        }
+    }
+
+    private void deleteItemById() throws StoreIsEmptyException, IncorrectInputException, EqualsItemIdException, ItemNotFoundException {
+        if (!store.checkForNoProductsAvailable()) {
+            System.out.println("Input item id:");
+            store.deleteItem(reader.readIntNumber());
+        }
+    }
+
+    private void editItemById() throws StoreIsEmptyException, IncorrectInputException, EqualsItemIdException, ItemNotFoundException {
+        if (!store.checkForNoProductsAvailable()) {
+            store.editItem(ItemUtil.createItem());
         }
     }
 
