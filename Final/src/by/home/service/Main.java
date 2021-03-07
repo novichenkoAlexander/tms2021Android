@@ -1,7 +1,6 @@
 package by.home.service;
 
 import by.home.exceptions.EqualsItemIdException;
-import by.home.exceptions.IncorrectInputException;
 import by.home.exceptions.ItemNotFoundException;
 import by.home.model.Menu;
 import by.home.model.Store;
@@ -43,15 +42,17 @@ public class Main {
 
         Store groceryStore = new Store();
         Menu menu = new Menu(groceryStore);
-        int i = 0;          //TODO: loop start()
-        while (i < 3) {
-            i++;
+        boolean exit = false;
+        while (!exit) {
             try {
-                menu.start();
-            } catch (IncorrectInputException e) {
+                exit = menu.start();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
+
     }
+
 }
+

@@ -2,9 +2,11 @@ package by.home.model;
 
 import by.home.exceptions.EqualsItemIdException;
 import by.home.exceptions.ItemNotFoundException;
+import by.home.exceptions.StoreIsEmptyException;
 import by.home.model.enums.OperationWithItem;
 import by.home.service.ItemComparator;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,14 +17,38 @@ public class Store {
         itemList = new LinkedList<>();
     }
 
-    public List<Item> getItemList() {
-        return itemList;
+    public List<Item> getItemsFirstNew() throws StoreIsEmptyException {
+        if (!checkIsEmpty()) {
+            return itemList;
+        }
+        return null;
     }
 
-    public List<Item> getItemListByPrice() {
-        LinkedList<Item> sortedItems = (LinkedList) itemList.clone();
-        sortedItems.sort(new ItemComparator());
-        return sortedItems;
+    public List<Item> getItemsFirstOld() throws StoreIsEmptyException {
+        if (!checkIsEmpty()) {
+            List<Item> sortedList = new LinkedList<>(itemList);
+            sortedList.sort(Collections.reverseOrder());
+            return sortedList;
+        }
+        return null;
+    }
+
+    public List<Item> getItemsByPriceDown() throws StoreIsEmptyException {
+        if (!checkIsEmpty()) {
+            LinkedList<Item> sortedItems = new LinkedList<>(itemList);
+            sortedItems.sort(new ItemComparator());
+            return sortedItems;
+        }
+        return null;
+    }
+
+    public List<Item> getItemsByPriceUp() throws StoreIsEmptyException {
+        if (!checkIsEmpty()) {
+            LinkedList<Item> sortedItems = new LinkedList<>(itemList);
+            sortedItems.sort(Collections.reverseOrder(new ItemComparator()));
+            return sortedItems;
+        }
+        return null;
     }
 
     public void addItem(Item item) throws ItemNotFoundException, EqualsItemIdException {
@@ -54,6 +80,14 @@ public class Store {
             edited = true;
         }
         printItemState(OperationWithItem.EDIT_ITEM, edited, item.getName());
+    }
+
+    private boolean checkIsEmpty() throws StoreIsEmptyException {
+        if (!itemList.isEmpty()) {
+            return false;
+        } else {
+            throw new StoreIsEmptyException("The Store is Empty! Add some products");
+        }
     }
 
     private void printItemState(OperationWithItem param, boolean state, String itemName) throws ItemNotFoundException, EqualsItemIdException {

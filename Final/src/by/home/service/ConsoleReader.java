@@ -7,17 +7,14 @@ import java.util.Scanner;
 public class ConsoleReader implements Reader {
     @Override
     public int readIntNumber() throws IncorrectInputException {
-        int result = -1;
+        int result = 0;
         while (true) {
             Scanner scanner = new Scanner(System.in);
             if (scanner.hasNextInt()) {
                 result = scanner.nextInt();
-                return result;
-            }
-            if (result >= 0 && result < 5) {
-                break;
-            }
-            else {
+                if (result >= 0)
+                    break;
+            } else {
                 throw new IncorrectInputException("Incorrect number!");
             }
         }
