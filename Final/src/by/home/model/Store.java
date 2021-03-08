@@ -10,14 +10,10 @@ import java.util.*;
 
 public class Store {
 
-    private LinkedHashMap<Item, Integer> items;
+    private final LinkedHashMap<Item, Integer> items;
 
     public Store() {
         items = new LinkedHashMap<>();
-    }
-
-    public void setItems(LinkedHashMap<Item, Integer> items) {
-        this.items = items;
     }
 
     public LinkedHashMap<Item, Integer> getItems() {     // first old
@@ -74,11 +70,11 @@ public class Store {
         printItemState(OperationWithItem.EDIT_ITEM, edited, String.valueOf(item.getId()));
     }
 
-    public boolean checkForNoProductsAvailable() throws StoreIsEmptyException {
-        if (!items.keySet().isEmpty()) {
-            return false;
-        } else {
+    public boolean checkForAvailableProducts() throws StoreIsEmptyException {
+        if (items.keySet().isEmpty()) {
             throw new StoreIsEmptyException("The Store is Empty! Add some products");
+        } else {
+            return true;
         }
     }
 
@@ -103,6 +99,5 @@ public class Store {
                 case EDIT_ITEM, DELETE_ITEM -> throw new ItemNotFoundException("No item with this id");
             }
         }
-
     }
 }

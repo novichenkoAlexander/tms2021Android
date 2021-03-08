@@ -3,25 +3,26 @@ package by.home.model;
 import java.util.*;
 
 public class Inventory {
-    private int itemTypeCount;
+    private int itemTypeCounts;
     private int totalItemsCount = 0;
-    private double averageProductsPrice = 0;
-    private double averageProductTypePrice;
     private final Store store;
 
     public Inventory(Store store) {
         this.store = store;
     }
 
-    public int getItemTypeCount() {
+    /**
+     * @return number of types of items, stored in store
+     */
+    public int getItemTypeCounts() {
         List<String> types = new LinkedList<>();
         for (Item item : store.getItems().keySet()) {
             if (!types.contains(item.getType())) {
                 types.add(item.getType());
-                itemTypeCount++;
+                itemTypeCounts++;
             }
         }
-        return itemTypeCount;
+        return itemTypeCounts;
     }
 
     public int getTotalItemsCount() {
@@ -37,8 +38,7 @@ public class Inventory {
         for (Item item : store.getItems().keySet()) {
             price += item.getPrice() * store.getItems().get(item);
         }
-        averageProductsPrice = price / getTotalItemsCount();
-        return averageProductsPrice;
+        return price / getTotalItemsCount();
     }
 
     public void printAverageProductTypePrice() {
@@ -51,11 +51,15 @@ public class Inventory {
             for (Item item : newMap.keySet()) {
                 price += item.getPrice() * newMap.get(item);        // sum of all items of same type
             }
-            averageProductTypePrice = price / getNumberOfItemsOfSameType(newMap);
+            double averageProductTypePrice = price / getNumberOfItemsOfSameType(newMap);
             System.out.println("Item Type: " + "'" + type + "'" + " Price: " + averageProductTypePrice + " $");
         }
     }
 
+    /**
+     * @param map - storage of elements of equal types
+     * @return number of all elements of same type
+     */
     private int getNumberOfItemsOfSameType(HashMap<Item, Integer> map) {
         int number = 0;
         for (Item item : map.keySet()) {
@@ -65,7 +69,9 @@ public class Inventory {
     }
 
     /**
-     * @return Map of String keys of 'type' to Map<Item,Integer></>
+     * This method returns all elements of all types
+     *
+     * @return Map of String keys of 'type' to Map<Item,Integer> </>
      */
     private HashMap<String, HashMap<Item, Integer>> getItemsTypeToCount() {
         HashMap<String, HashMap<Item, Integer>> itemsTypeToCount = new HashMap<>();
@@ -80,7 +86,9 @@ public class Inventory {
     }
 
     /**
-     * @param type
+     * This method returns all element of equal type.
+     *
+     * @param type - type of Item
      * @return Map of Item to Counts depending on type.
      */
     private HashMap<Item, Integer> getItemsByType(String type) {
