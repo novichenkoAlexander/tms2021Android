@@ -1,28 +1,23 @@
 package by.home.model;
 
-import by.home.exceptions.EqualsItemIdException;
-import by.home.exceptions.IncorrectInputException;
-import by.home.exceptions.ItemNotFoundException;
-import by.home.exceptions.StoreIsEmptyException;
+import by.home.exceptions.*;
 import by.home.model.enums.MenuElement;
 import by.home.model.enums.SortPrintedItems;
 import by.home.service.ConsoleReader;
 import by.home.service.ItemUtil;
 
 import java.util.EnumSet;
-import java.util.Map;
 
 public class Menu {
     private final Store store;
     private final ConsoleReader reader;
-    private Map<Item, Integer> itemsWithQuantity;
 
     public Menu(Store store) {
         this.store = store;
         reader = new ConsoleReader();
     }
 
-    public boolean start() throws IncorrectInputException, StoreIsEmptyException, EqualsItemIdException, ItemNotFoundException {
+    public boolean start() throws IncorrectInputException, StoreIsEmptyException, EqualsItemIdException, ItemNotFoundException, NoEnoughItemQuantityException {
         boolean isExit = false;
         while (!isExit) {
             printMenuInfo();
@@ -39,18 +34,19 @@ public class Menu {
      * @throws EqualsItemIdException
      * @throws ItemNotFoundException
      */
-    private boolean menuInit() throws IncorrectInputException, StoreIsEmptyException, EqualsItemIdException, ItemNotFoundException {
+    private boolean menuInit() throws IncorrectInputException, StoreIsEmptyException, EqualsItemIdException, ItemNotFoundException, NoEnoughItemQuantityException {
         boolean isExit = false;
         int menuItemNumber = reader.readIntNumber();
         if (menuItemNumber == 0) {                                         // 0 - Exit
             isExit = true;
-        } else if (menuItemNumber >= 0 && menuItemNumber < 6) {
+        } else if (menuItemNumber >= 0 && menuItemNumber < 7) {
             switch (getMenuElementByNumber(menuItemNumber)) {
                 case PRINT_ALL_ITEMS -> printAllItems();                        // 1
                 case ADD_ITEM -> store.addItem(ItemUtil.createItem());          // 2
                 case DELETE_ITEM -> deleteItemById();                           // 3
                 case EDIT_ITEM -> editItemById();                               // 4
                 case ADD_QUANTITY -> addQuantity();                             // 5
+                case BUY_PRODUCT -> buyProduct();                               // 6
                 case EXIT -> System.out.println("Exit");                        // 0
             }
         } else {
@@ -115,13 +111,12 @@ public class Menu {
 
     private void addQuantity() throws ItemNotFoundException, IncorrectInputException, StoreIsEmptyException {
         if (!store.checkForNoProductsAvailable()) {
-            System.out.println("Input item id to set quantity:");
-            int itemId = reader.readIntNumber();
-            System.out.println("Input quantity:");
-            int quantity = reader.readIntNumber();
+            ItemUtil result = ItemUtil.returnIdAndQuantity();
+            int itemId = result.getId();
+            int quantity = result.getQuantity();
             for (Item item : store.getItems().keySet()) {
                 if (itemId == item.getId()) {
-                    store.getItems().put(item, quantity);
+                    store.getItems().put(item, quantity + 1);
                     break;
                 } else {
                     throw new ItemNotFoundException("No item with such id!");
@@ -130,7 +125,34 @@ public class Menu {
         }
     }
 
-    private SortPrintedItems getItemSortParam(int number, EnumSet<SortPrintedItems> param) throws IncorrectInputException {
+    private void buyProduct() throws StoreIsEmptyException, IncorrectInputException, ItemNotFoundException, NoEnoughItemQuantityException, EqualsItemIdException {
+        if (!store.checkForNoProductsAvailable()) {
+            ItemUtil result = ItemUtil.returnIdAndQuantity();
+            int itemId = result.getId();
+            int quantity = result.getQuantity();
+            for (Item item : store.getItems().keySet()) {
+                if (itemId == item.getId()) {
+                    int itemsAvailable = store.getItems().get(item);
+                    if (itemsAvailable >= quantity) {
+                        store.getItems().put(item, itemsAvailable - quantity);
+                        System.out.println("The customer bought " + item.getName() + " - " + quantity + " pcs");
+                        System.out.println("The cost is: " + item.getPrice() * quantity + " $");
+                        if (store.getItems().get(item) == 0) {
+                            store.deleteItem(itemId);
+                        }
+                    } else {
+                        throw new NoEnoughItemQuantityException("No enough quantity of this Item!");
+                    }
+                    break;
+                } else {
+                    throw new ItemNotFoundException("No item with such id!");
+                }
+            }
+        }
+    }
+
+    private SortPrintedItems getItemSortParam(int number, EnumSet<SortPrintedItems> param) throws
+            IncorrectInputException {
         if (number > 0 && number < 3) {
             for (SortPrintedItems m : param) {
                 if (m.getNumber() == number) {
@@ -159,6 +181,7 @@ public class Menu {
                 "3 - Delete item;\n" +
                 "4 - Edit item;\n" +
                 "5 - Add quantity;\n" +
+                "6 - Buy item;\n" +
                 "0 - exit");
     }
 
