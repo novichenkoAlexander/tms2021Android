@@ -9,39 +9,39 @@ import by.home.service.ItemComparator;
 import java.util.*;
 
 public class Store {
-    private final LinkedList<Item> itemList;
+
+    private final LinkedHashMap<Item, Integer> items;
 
     public Store() {
-        itemList = new LinkedList<>();
+        items = new LinkedHashMap<>();
     }
 
-    public List<Item> getItems() {
-        return itemList;
+    public LinkedHashMap<Item, Integer> getItems() {     // first old
+        return items;
     }
 
-    public List<Item> getItemsFirstOld() {
-        List<Item> sortedList = new LinkedList<>(itemList);
-        Collections.reverse(sortedList);
-        return sortedList;
+    public LinkedHashMap<Item, Integer> getItemsFirstNew() {
+        List<Item> sortedItems = new ArrayList<>(items.keySet());
+        Collections.reverse(sortedItems);
+        return returnMapFromList(sortedItems);
     }
 
-    public List<Item> getItemsByPriceDown() {
-        LinkedList<Item> sortedItems = new LinkedList<>(itemList);
+    public LinkedHashMap<Item, Integer> getItemsByPriceDown() {
+        List<Item> sortedItems = new ArrayList<>(items.keySet());
         sortedItems.sort(new ItemComparator());
-        return sortedItems;
+        return returnMapFromList(sortedItems);
     }
 
-
-    public List<Item> getItemsByPriceUp() {
-        LinkedList<Item> sortedItems = new LinkedList<>(itemList);
+    public LinkedHashMap<Item, Integer> getItemsByPriceUp() {
+        List<Item> sortedItems = new ArrayList<>(items.keySet());
         sortedItems.sort(Collections.reverseOrder(new ItemComparator()));
-        return sortedItems;
+        return returnMapFromList(sortedItems);
     }
 
     public void addItem(Item item) throws ItemNotFoundException, EqualsItemIdException {
         boolean added = false;
-        if (!itemList.contains(item)) {
-            itemList.add(0, item);
+        if (!items.containsKey(item)) {
+            items.put(item, 1);
             added = true;
         }
         printItemState(OperationWithItem.ADD_ITEM, added, item.getName());
@@ -49,9 +49,9 @@ public class Store {
 
     public void deleteItem(int id) throws ItemNotFoundException, EqualsItemIdException {
         boolean deleted = false;
-        for (Item item : itemList) {
+        for (Item item : items.keySet()) {
             if (item.getId() == id) {
-                itemList.remove(item);
+                items.remove(item);
                 deleted = true;
                 break;
             }
@@ -61,20 +61,28 @@ public class Store {
 
     public void editItem(Item item) throws EqualsItemIdException, ItemNotFoundException {
         boolean edited = false;
-        if (itemList.contains(item)) {
-            itemList.remove(item);
-            itemList.add(item);
+        if (items.containsKey(item)) {
+            items.remove(item);
+            items.put(item, 1);
             edited = true;
         }
         printItemState(OperationWithItem.EDIT_ITEM, edited, String.valueOf(item.getId()));
     }
 
     public boolean checkForNoProductsAvailable() throws StoreIsEmptyException {
-        if (!itemList.isEmpty()) {
+        if (!items.keySet().isEmpty()) {
             return false;
         } else {
             throw new StoreIsEmptyException("The Store is Empty! Add some products");
         }
+    }
+
+    private LinkedHashMap<Item, Integer> returnMapFromList(List<Item> list) {
+        LinkedHashMap<Item, Integer> newMap = new LinkedHashMap<>();
+        for (Item item : list) {
+            newMap.put(item, 1);
+        }
+        return newMap;
     }
 
     private void printItemState(OperationWithItem param, boolean state, String itemName) throws ItemNotFoundException, EqualsItemIdException {

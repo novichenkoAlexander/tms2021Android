@@ -10,8 +10,6 @@ import by.home.service.ConsoleReader;
 import by.home.service.ItemUtil;
 
 import java.util.EnumSet;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Menu {
@@ -32,21 +30,6 @@ public class Menu {
 
         }
         return true;
-    }
-
-    /**
-     * TODO: create method addItem in Menu.java and place method convertItemList() in it;
-     * TODO: in method deleteItem() place  convertItemList() too;
-     */
-
-
-
-    public Map<Item, Integer> convertItemList(List<Item> list) {
-        itemsWithQuantity = new LinkedHashMap<>();
-        for (Item item : list) {
-            itemsWithQuantity.put(item, 1);
-        }
-        return itemsWithQuantity;
     }
 
     /**
@@ -95,8 +78,8 @@ public class Menu {
                         System.out.println("1 - New first\n" +
                                 "2 - Old first");
                         switch (getItemSortParam(reader.readIntNumber(), order)) {
-                            case BY_ORDER_FIRST_NEW -> ItemUtil.printMap(convertItemList(store.getItems()));
-                            case BY_ORDER_FIRST_OLD -> ItemUtil.printMap(convertItemList(store.getItemsFirstOld()));
+                            case BY_ORDER_FIRST_NEW -> ItemUtil.printMap((store.getItemsFirstNew()));
+                            case BY_ORDER_FIRST_OLD -> ItemUtil.printMap((store.getItems()));
                         }
                     }
                     case 2 -> {
@@ -104,8 +87,8 @@ public class Menu {
                         System.out.println("1 - Cheap first\n" +
                                 "2 - Expensive first");
                         switch (getItemSortParam(reader.readIntNumber(), price)) {
-                            case BY_PRICE_CHEAP_FIRST -> ItemUtil.printList(store.getItemsByPriceUp());
-                            case BY_PRICE_EXPENSIVE_FIRST -> ItemUtil.printList(store.getItemsByPriceDown());
+                            case BY_PRICE_CHEAP_FIRST -> ItemUtil.printMap(store.getItemsByPriceUp());
+                            case BY_PRICE_EXPENSIVE_FIRST -> ItemUtil.printMap(store.getItemsByPriceDown());
                         }
                     }
                 }
@@ -132,7 +115,6 @@ public class Menu {
 
     private void addQuantity() throws ItemNotFoundException, IncorrectInputException, StoreIsEmptyException {
         if (!store.checkForNoProductsAvailable()) {
-            convertItemList(store.getItems());
             System.out.println("Input item id to set quantity:");
             int itemId = reader.readIntNumber();
             System.out.println("Input quantity:");
