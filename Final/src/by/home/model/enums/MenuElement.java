@@ -8,6 +8,7 @@ public enum MenuElement {
     EDIT_ITEM(4),
     ADD_QUANTITY(5),
     BUY_PRODUCT(6),
+    INVENTORY(7),
     EXIT(0);
 
     private final int number;

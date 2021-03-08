@@ -66,8 +66,9 @@ public class Store {
     public void editItem(Item item) throws EqualsItemIdException, ItemNotFoundException {
         boolean edited = false;
         if (items.containsKey(item)) {
+            int i = items.get(item);
             items.remove(item);
-            items.put(item, 1);
+            items.put(item, i);
             edited = true;
         }
         printItemState(OperationWithItem.EDIT_ITEM, edited, String.valueOf(item.getId()));

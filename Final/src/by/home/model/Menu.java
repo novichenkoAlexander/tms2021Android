@@ -1,6 +1,7 @@
 package by.home.model;
 
 import by.home.exceptions.*;
+import by.home.model.enums.InventoryElement;
 import by.home.model.enums.MenuElement;
 import by.home.model.enums.SortPrintedItems;
 import by.home.service.ConsoleReader;
@@ -37,17 +38,33 @@ public class Menu {
     private boolean menuInit() throws IncorrectInputException, StoreIsEmptyException, EqualsItemIdException, ItemNotFoundException, NoEnoughItemQuantityException {
         boolean isExit = false;
         int menuItemNumber = reader.readIntNumber();
-        if (menuItemNumber == 0) {                                         // 0 - Exit
+        if (menuItemNumber == 0) {
             isExit = true;
-        } else if (menuItemNumber >= 0 && menuItemNumber < 7) {
+        } else if (menuItemNumber >= 0 && menuItemNumber < MenuElement.values().length) {
             switch (getMenuElementByNumber(menuItemNumber)) {
-                case PRINT_ALL_ITEMS -> printAllItems();                        // 1
-                case ADD_ITEM -> store.addItem(ItemUtil.createItem());          // 2
-                case DELETE_ITEM -> deleteItemById();                           // 3
-                case EDIT_ITEM -> editItemById();                               // 4
-                case ADD_QUANTITY -> addQuantity();                             // 5
-                case BUY_PRODUCT -> buyProduct();                               // 6
-                case EXIT -> System.out.println("Exit");                        // 0
+                case PRINT_ALL_ITEMS -> printAllItems();
+                case ADD_ITEM -> {
+                    System.out.println("---ADD ITEM---");
+                    store.addItem(ItemUtil.createItem());
+                }
+                case DELETE_ITEM -> {
+                    System.out.println("---DELETE ITEM---");
+                    deleteItemById();
+                }
+                case EDIT_ITEM -> {
+                    System.out.println("---EDIT ITEM---");
+                    editItemById();
+                }
+                case ADD_QUANTITY -> {
+                    System.out.println("---ADD QUANTITY---");
+                    addQuantity();
+                }
+                case BUY_PRODUCT -> {
+                    System.out.println("---BUY ITEM---");
+                    buyProduct();
+                }
+                case INVENTORY -> workWithInventory();
+                case EXIT -> System.out.println("Exit");
             }
         } else {
             throw new IncorrectInputException("Incorrect input number!");
@@ -117,6 +134,7 @@ public class Menu {
             for (Item item : store.getItems().keySet()) {
                 if (itemId == item.getId()) {
                     store.getItems().put(item, quantity + 1);
+                    System.out.println("Quantity of Item " + "'" + item.getName() + "'" + " increased by " + quantity);
                     break;
                 } else {
                     throw new ItemNotFoundException("No item with such id!");
@@ -130,25 +148,75 @@ public class Menu {
             ItemUtil result = ItemUtil.returnIdAndQuantity();
             int itemId = result.getId();
             int quantity = result.getQuantity();
+            boolean found = false;
             for (Item item : store.getItems().keySet()) {
                 if (itemId == item.getId()) {
-                    int itemsAvailable = store.getItems().get(item);
-                    if (itemsAvailable >= quantity) {
-                        store.getItems().put(item, itemsAvailable - quantity);
-                        System.out.println("The customer bought " + item.getName() + " - " + quantity + " pcs");
-                        System.out.println("The cost is: " + item.getPrice() * quantity + " $");
-                        if (store.getItems().get(item) == 0) {
-                            store.deleteItem(itemId);
-                        }
-                    } else {
-                        throw new NoEnoughItemQuantityException("No enough quantity of this Item!");
-                    }
+                    isItemsEnough(item, itemId, quantity);
+                    found = true;
                     break;
-                } else {
-                    throw new ItemNotFoundException("No item with such id!");
                 }
             }
+            if (!found) {
+                throw new ItemNotFoundException("No item with such id!");
+            }
         }
+    }
+
+    private boolean isItemsEnough(Item item, int id, int quantity) throws EqualsItemIdException, ItemNotFoundException,
+            NoEnoughItemQuantityException {
+        boolean isEnough = true;
+        int itemsAvailable = store.getItems().get(item);
+        if (itemsAvailable >= quantity) {
+            store.getItems().put(item, itemsAvailable - quantity);
+            System.out.println("The customer bought " + item.getName() + " - " + quantity + " pcs");
+            System.out.println("The cost is: " + item.getPrice() * quantity + " $");
+            if (store.getItems().get(item) == 0) {
+                store.deleteItem(id);
+                isEnough = false;
+            }
+        } else {
+            throw new NoEnoughItemQuantityException("No enough quantity of this Item!");
+        }
+        return isEnough;
+    }
+
+    private void workWithInventory() throws IncorrectInputException, StoreIsEmptyException {
+        if (!store.checkForNoProductsAvailable()) {
+            Inventory inventory = new Inventory(store);
+            printInventoryMenuInfo();
+            int number = reader.readIntNumber();
+            if (number > 0 && number <= InventoryElement.values().length) {
+                switch (getInventoryElement(number)) {
+                    case ITEMS_TYPE_COUNT -> System.out.println("Number of item types: " +
+                            inventory.getItemTypeCount() + "\n");
+                    case GENERAL_ITEMS_COUNT -> System.out.println("General number of items in Store: " +
+                            inventory.getTotalItemsCount() + "\n");
+                    case AVERAGE_ITEMS_PRICE -> System.out.println("Average price of all items: " +
+                            String.format("%.2f", inventory.getAverageProductsPrice()) + " $\n");
+                    case AVERAGE_ITEMS_TYPE_PRICE -> inventory.printAverageProductTypePrice();
+                }
+            } else {
+                throw new IncorrectInputException("Incorrect input number!");
+            }
+        }
+
+    }
+
+    private void printInventoryMenuInfo() {
+        System.out.println("---INVENTORY---");
+        System.out.println("1 - Item types count;\n" +
+                "2 - General items count;\n" +
+                "3 - Average items price;\n" +
+                "4 - Average item types price;");
+    }
+
+    private InventoryElement getInventoryElement(int number) {
+        for (InventoryElement element : InventoryElement.values()) {
+            if (element.getValue() == number) {
+                return InventoryElement.valueOf(element.name());
+            }
+        }
+        return null;
     }
 
     private SortPrintedItems getItemSortParam(int number, EnumSet<SortPrintedItems> param) throws
@@ -167,7 +235,7 @@ public class Menu {
 
     private MenuElement getMenuElementByNumber(int number) {
         for (MenuElement element : MenuElement.values()) {
-            if (number == element.getValue()) {
+            if (element.getValue() == number) {
                 return MenuElement.valueOf(element.name());
             }
         }
@@ -182,6 +250,7 @@ public class Menu {
                 "4 - Edit item;\n" +
                 "5 - Add quantity;\n" +
                 "6 - Buy item;\n" +
+                "7 - Inventory\n" +
                 "0 - exit");
     }
 
