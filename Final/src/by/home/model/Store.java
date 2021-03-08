@@ -10,10 +10,14 @@ import java.util.*;
 
 public class Store {
 
-    private final LinkedHashMap<Item, Integer> items;
+    private LinkedHashMap<Item, Integer> items;
 
     public Store() {
         items = new LinkedHashMap<>();
+    }
+
+    public void setItems(LinkedHashMap<Item, Integer> items) {
+        this.items = items;
     }
 
     public LinkedHashMap<Item, Integer> getItems() {     // first old
@@ -80,7 +84,7 @@ public class Store {
     private LinkedHashMap<Item, Integer> returnMapFromList(List<Item> list) {
         LinkedHashMap<Item, Integer> newMap = new LinkedHashMap<>();
         for (Item item : list) {
-            newMap.put(item, 1);
+            newMap.put(item, items.get(item));
         }
         return newMap;
     }

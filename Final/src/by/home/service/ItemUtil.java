@@ -17,7 +17,7 @@ public class ItemUtil {
 
     public static void printMap(Map<Item, Integer> map) {
         for (Item item : map.keySet()) {
-            System.out.println(item + " qty:" + map.get(item));
+            System.out.println(item + " qty: " + map.get(item));
         }
     }
 

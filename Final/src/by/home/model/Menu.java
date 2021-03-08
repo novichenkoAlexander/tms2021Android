@@ -119,9 +119,9 @@ public class Menu {
             int itemId = reader.readIntNumber();
             System.out.println("Input quantity:");
             int quantity = reader.readIntNumber();
-            for (Item item : itemsWithQuantity.keySet()) {
+            for (Item item : store.getItems().keySet()) {
                 if (itemId == item.getId()) {
-                    itemsWithQuantity.put(item, quantity);
+                    store.getItems().put(item, quantity);
                     break;
                 } else {
                     throw new ItemNotFoundException("No item with such id!");

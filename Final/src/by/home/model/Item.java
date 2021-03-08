@@ -60,9 +60,9 @@ public class Item {
     @Override
     public String toString() {
         return "Item:" +
-                " id= " + id + ';' +
-                " name= '" + name + "';" +
-                " type= " + type + ';' +
+                " id = " + id + ';' +
+                " name = '" + name + "';" +
+                " type = " + type + ';' +
                 " price = " + price;
     }
 }
