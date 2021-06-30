@@ -12,7 +12,7 @@ public class Main {
             try {
                 exit = menu.start();
             } catch (Exception e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         }
     }

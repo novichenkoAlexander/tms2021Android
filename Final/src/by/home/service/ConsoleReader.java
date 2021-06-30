@@ -16,11 +16,12 @@ public class ConsoleReader implements Reader {
             result = scanner.nextInt();
             if (result >= 0) {
                 return result;
+            } else {
+                throw new IncorrectInputException("Not positive number!");
             }
         } else {
             throw new IncorrectInputException("Incorrect number!");
         }
-        return result;
     }
 
     @Override
