@@ -6,6 +6,7 @@ public class EqualsItemIdException extends Exception {
      *                later retrieval by the {@link #getMessage()} method.
      */
     public EqualsItemIdException(String message) {
-        super(message);
+        //super(message);
+        System.out.println(message);
     }
 }

@@ -10,6 +10,7 @@ public class StoreIsEmptyException extends Exception{
      *                later retrieval by the {@link #getMessage()} method.
      */
     public StoreIsEmptyException(String message) {
-        super(message);
+        //super(message);
+        System.out.println(message);
     }
 }
